@@ -1,0 +1,1 @@
+Q-CARE is an evidence-first hybrid quantum healthcare benchmark that compares classical SVM and QSVC at the same feature budget—and reports when neither model transports reliably.

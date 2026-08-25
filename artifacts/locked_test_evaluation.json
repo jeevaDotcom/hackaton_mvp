@@ -1,0 +1,275 @@
+{
+  "models": {
+    "best_pca_control": {
+      "best_params": {
+        "model__C": 0.1,
+        "model__class_weight": null
+      },
+      "bootstrap_intervals": {
+        "roc_auc": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 0.9893333333333333,
+          "estimate": 0.9973333333333333
+        },
+        "sensitivity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 0.98,
+          "ci95_low": 0.84,
+          "estimate": 0.92
+        },
+        "specificity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 0.9,
+          "estimate": 0.9666666666666667
+        }
+      },
+      "columns": "24 source variables transformed to latent PCA components",
+      "metrics": {
+        "accuracy": 0.9375,
+        "f1": 0.9484536082474226,
+        "fn": 4,
+        "fp": 1,
+        "pr_auc": 0.998383013205282,
+        "precision": 0.9787234042553191,
+        "roc_auc": 0.9973333333333333,
+        "runtime_seconds": 0.2585389169980772,
+        "sensitivity": 0.92,
+        "specificity": 0.9666666666666667,
+        "tn": 29,
+        "tp": 46
+      },
+      "model": "logistic_regression",
+      "pca_components": 6
+    },
+    "full_reference": {
+      "best_params": {
+        "model__class_weight": "balanced_subsample",
+        "model__max_depth": 8,
+        "model__min_samples_leaf": 1,
+        "model__n_estimators": 300
+      },
+      "bootstrap_intervals": {
+        "roc_auc": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 0.9999999999999999,
+          "estimate": 1.0
+        },
+        "sensitivity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 0.94,
+          "estimate": 0.98
+        },
+        "specificity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "estimate": 1.0
+        }
+      },
+      "columns": [
+        "age",
+        "bp",
+        "sg",
+        "al",
+        "su",
+        "rbc",
+        "pc",
+        "pcc",
+        "ba",
+        "bgr",
+        "bu",
+        "sc",
+        "sod",
+        "pot",
+        "hemo",
+        "pcv",
+        "wc",
+        "rc",
+        "htn",
+        "dm",
+        "cad",
+        "appet",
+        "pe",
+        "ane"
+      ],
+      "metrics": {
+        "accuracy": 0.9875,
+        "f1": 0.98989898989899,
+        "fn": 1,
+        "fp": 0,
+        "pr_auc": 1.0,
+        "precision": 1.0,
+        "roc_auc": 1.0,
+        "runtime_seconds": 2.8417727500054752,
+        "sensitivity": 0.98,
+        "specificity": 1.0,
+        "tn": 30,
+        "tp": 49
+      },
+      "model": "random_forest",
+      "pca_components": null
+    },
+    "selected_4": {
+      "best_params": {
+        "model__C": 10.0,
+        "model__class_weight": null
+      },
+      "bootstrap_intervals": {
+        "roc_auc": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 0.996,
+          "ci95_low": 0.9239833333333333,
+          "estimate": 0.9666666666666667
+        },
+        "sensitivity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 0.96,
+          "ci95_low": 0.78,
+          "estimate": 0.88
+        },
+        "specificity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 0.9,
+          "estimate": 0.9666666666666667
+        }
+      },
+      "columns": [
+        "hemo",
+        "pcv",
+        "rc",
+        "sc"
+      ],
+      "metrics": {
+        "accuracy": 0.9125,
+        "f1": 0.9263157894736842,
+        "fn": 6,
+        "fp": 1,
+        "pr_auc": 0.9840743283159717,
+        "precision": 0.9777777777777777,
+        "roc_auc": 0.9666666666666667,
+        "runtime_seconds": 0.13900125000509433,
+        "sensitivity": 0.88,
+        "specificity": 0.9666666666666667,
+        "tn": 29,
+        "tp": 44
+      },
+      "model": "logistic_regression",
+      "pca_components": null
+    },
+    "selected_6": {
+      "best_params": {
+        "model__C": 0.5,
+        "model__class_weight": null,
+        "model__gamma": "scale"
+      },
+      "bootstrap_intervals": {
+        "roc_auc": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 0.9999999999999999,
+          "estimate": 1.0
+        },
+        "sensitivity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 0.9,
+          "estimate": 0.96
+        },
+        "specificity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "estimate": 1.0
+        }
+      },
+      "columns": [
+        "hemo",
+        "al",
+        "dm",
+        "sg",
+        "pcv",
+        "appet"
+      ],
+      "metrics": {
+        "accuracy": 0.975,
+        "f1": 0.9795918367346939,
+        "fn": 2,
+        "fp": 0,
+        "pr_auc": 1.0,
+        "precision": 1.0,
+        "roc_auc": 1.0,
+        "runtime_seconds": 0.3934926250076387,
+        "sensitivity": 0.96,
+        "specificity": 1.0,
+        "tn": 30,
+        "tp": 48
+      },
+      "model": "svm_rbf",
+      "pca_components": null
+    },
+    "selected_8": {
+      "best_params": {
+        "model__C": 0.5,
+        "model__class_weight": null,
+        "model__gamma": "scale"
+      },
+      "bootstrap_intervals": {
+        "roc_auc": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 0.9999999999999999,
+          "estimate": 1.0
+        },
+        "sensitivity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 0.94,
+          "estimate": 0.98
+        },
+        "specificity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "estimate": 1.0
+        }
+      },
+      "columns": [
+        "hemo",
+        "al",
+        "dm",
+        "sg",
+        "pcv",
+        "appet",
+        "htn",
+        "sc"
+      ],
+      "metrics": {
+        "accuracy": 0.9875,
+        "f1": 0.98989898989899,
+        "fn": 1,
+        "fp": 0,
+        "pr_auc": 1.0,
+        "precision": 1.0,
+        "roc_auc": 1.0,
+        "runtime_seconds": 0.32744958299736027,
+        "sensitivity": 0.98,
+        "specificity": 1.0,
+        "tn": 30,
+        "tp": 49
+      },
+      "model": "svm_rbf",
+      "pca_components": null
+    }
+  },
+  "policy": "Each frozen configuration was fitted on complete development data and evaluated once on the same locked 80-patient test set.",
+  "test_n": 80,
+  "test_target_distribution": {
+    "ckd": 50,
+    "not_ckd": 30
+  }
+}

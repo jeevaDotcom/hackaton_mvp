@@ -1,0 +1,15 @@
+{
+  "classifier_C": 0.5,
+  "cv_f1": 0.9848959219744957,
+  "cv_roc_auc": 0.9989583333333332,
+  "cv_sensitivity": 0.9825000000000002,
+  "cv_specificity": 0.9791666666666666,
+  "entanglement": "none",
+  "feature_map": "ZFeatureMap",
+  "feature_map_config": "z_reps1",
+  "joint_tolerance_filter_had_eligible_configuration": true,
+  "locked_test_was_used": false,
+  "reps": 1,
+  "selection_rule": "first retain configurations whose sensitivity, specificity, ROC-AUC and F1 degradations are each <=0.05 versus the identical-fold classical SVM; then rank lexicographically by sensitivity, ROC-AUC, F1, specificity, lower depth and lower training wall time",
+  "selection_scope": "development data only; primary eight-variable clinical representation"
+}

@@ -1,0 +1,45 @@
+dataset,label,label_name,feature,feature_type,category,count,missing_count,category_count,proportion,mean,sd,min,p5,p25,median,p75,p95,max
+UCI full source cohort,0,non-CKD,hemo,numeric,,144,6,,,15.188194444444443,1.277535681095607,13.0,13.315000000000001,14.1,15.0,16.2,17.384999999999998,17.8
+UCI full source cohort,0,non-CKD,al,numeric,,145,5,,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+UCI full source cohort,0,non-CKD,sg,numeric,,145,5,,,1.0224137931034483,0.0025071736158929275,1.02,1.02,1.02,1.02,1.025,1.025,1.025
+UCI full source cohort,0,non-CKD,pcv,numeric,,146,4,,,46.33561643835616,4.134426361845258,40.0,40.25,43.0,46.0,50.0,52.75,54.0
+UCI full source cohort,0,non-CKD,sc,numeric,,145,5,,,0.8689655172413793,0.2550918248013052,0.4,0.5,0.6,0.9,1.1,1.2,1.2
+UCI full source cohort,0,non-CKD,dm,categorical,no,148,2,148.0,1.0,,,,,,,,,
+UCI full source cohort,0,non-CKD,dm,categorical,yes,148,2,0.0,0.0,,,,,,,,,
+UCI full source cohort,0,non-CKD,appet,categorical,good,149,1,149.0,1.0,,,,,,,,,
+UCI full source cohort,0,non-CKD,appet,categorical,poor,149,1,0.0,0.0,,,,,,,,,
+UCI full source cohort,0,non-CKD,htn,categorical,no,148,2,148.0,1.0,,,,,,,,,
+UCI full source cohort,0,non-CKD,htn,categorical,yes,148,2,0.0,0.0,,,,,,,,,
+UCI full source cohort,1,CKD,hemo,numeric,,204,46,,,10.64754901960784,2.1857901756953986,3.1,6.63,9.475,10.9,12.025,14.084999999999999,16.1
+UCI full source cohort,1,CKD,al,numeric,,209,41,,,1.722488038277512,1.372645372398073,0.0,0.0,0.0,2.0,3.0,4.0,5.0
+UCI full source cohort,1,CKD,sg,numeric,,208,42,,,1.013918269230769,0.004626958693182871,1.005,1.01,1.01,1.015,1.015,1.0232499999999998,1.025
+UCI full source cohort,1,CKD,pcv,numeric,,183,67,,,32.939890710382514,7.208945449473499,9.0,21.1,28.5,33.0,37.0,44.0,52.0
+UCI full source cohort,1,CKD,sc,numeric,,238,12,,,4.4149159663865545,6.950275333258276,0.5,0.8,1.4249999999999998,2.25,4.55,13.544999999999993,76.0
+UCI full source cohort,1,CKD,dm,categorical,no,250,0,113.0,0.452,,,,,,,,,
+UCI full source cohort,1,CKD,dm,categorical,yes,250,0,137.0,0.548,,,,,,,,,
+UCI full source cohort,1,CKD,appet,categorical,good,250,0,168.0,0.672,,,,,,,,,
+UCI full source cohort,1,CKD,appet,categorical,poor,250,0,82.0,0.328,,,,,,,,,
+UCI full source cohort,1,CKD,htn,categorical,no,250,0,103.0,0.412,,,,,,,,,
+UCI full source cohort,1,CKD,htn,categorical,yes,250,0,147.0,0.588,,,,,,,,,
+BD-KDD,0,non-CKD,hemo,numeric,,481,0,,,12.104573804573803,2.948915739170761,7.0,7.4,9.7,12.1,14.7,16.6,17.0
+BD-KDD,0,non-CKD,al,numeric,,481,0,,,2.0353430353430353,1.4247800768884535,0.0,0.0,1.0,2.0,3.0,4.0,4.0
+BD-KDD,0,non-CKD,sg,numeric,,481,0,,,1.01504158004158,0.007115002986525555,1.005,1.005,1.01,1.015,1.02,1.025,1.025
+BD-KDD,0,non-CKD,pcv,numeric,,481,0,,,37.224532224532226,9.781546243623596,20.0,21.0,29.0,37.0,46.0,53.0,54.0
+BD-KDD,0,non-CKD,sc,numeric,,481,0,,,7.411309771309771,4.1744317165244365,0.5,1.18,3.81,7.1,10.69,14.16,14.96
+BD-KDD,0,non-CKD,dm,categorical,no,481,0,246.0,0.5114345114345115,,,,,,,,,
+BD-KDD,0,non-CKD,dm,categorical,yes,481,0,235.0,0.4885654885654886,,,,,,,,,
+BD-KDD,0,non-CKD,appet,categorical,good,481,0,250.0,0.5197505197505198,,,,,,,,,
+BD-KDD,0,non-CKD,appet,categorical,poor,481,0,231.0,0.4802494802494803,,,,,,,,,
+BD-KDD,0,non-CKD,htn,categorical,no,481,0,229.0,0.4760914760914761,,,,,,,,,
+BD-KDD,0,non-CKD,htn,categorical,yes,481,0,252.0,0.5239085239085239,,,,,,,,,
+BD-KDD,1,CKD,hemo,numeric,,507,0,,,12.053254437869823,2.7709254636767127,7.0,7.4,9.850000000000001,12.1,14.4,16.3,17.0
+BD-KDD,1,CKD,al,numeric,,507,0,,,2.0256410256410255,1.4146793004270097,0.0,0.0,1.0,2.0,3.0,4.0,4.0
+BD-KDD,1,CKD,sg,numeric,,507,0,,,1.015473372781065,0.007166345165336645,1.005,1.005,1.01,1.015,1.02,1.025,1.025
+BD-KDD,1,CKD,pcv,numeric,,507,0,,,36.24457593688363,9.956195816972567,20.0,21.0,28.0,36.0,45.0,52.0,54.0
+BD-KDD,1,CKD,sc,numeric,,507,0,,,7.653333333333333,4.1117475263791565,0.51,1.173,4.165,7.71,10.96,14.128,14.98
+BD-KDD,1,CKD,dm,categorical,no,507,0,257.0,0.5069033530571992,,,,,,,,,
+BD-KDD,1,CKD,dm,categorical,yes,507,0,250.0,0.4930966469428008,,,,,,,,,
+BD-KDD,1,CKD,appet,categorical,good,507,0,248.0,0.4891518737672584,,,,,,,,,
+BD-KDD,1,CKD,appet,categorical,poor,507,0,259.0,0.5108481262327417,,,,,,,,,
+BD-KDD,1,CKD,htn,categorical,no,507,0,236.0,0.46548323471400394,,,,,,,,,
+BD-KDD,1,CKD,htn,categorical,yes,507,0,271.0,0.534516765285996,,,,,,,,,

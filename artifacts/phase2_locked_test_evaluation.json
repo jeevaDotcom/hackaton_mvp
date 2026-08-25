@@ -1,0 +1,382 @@
+{
+  "evaluated_on": "2026-08-24",
+  "frozen_config_sha256": "f2a2865bce8f02f66e25703f752ecb2067e9de7f0bb3157e418bc0a520fb8d1f",
+  "models": {
+    "classical_6_clinical": {
+      "bootstrap_intervals": {
+        "roc_auc": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 0.9999999999999999,
+          "estimate": 1.0
+        },
+        "sensitivity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 0.9,
+          "estimate": 0.96
+        },
+        "specificity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "estimate": 1.0
+        }
+      },
+      "budget": 6,
+      "features": [
+        "hemo",
+        "al",
+        "dm",
+        "sg",
+        "pcv",
+        "appet"
+      ],
+      "metrics": {
+        "accuracy": 0.975,
+        "f1": 0.9795918367346939,
+        "fn": 2,
+        "fp": 0,
+        "pr_auc": 1.0,
+        "precision": 1.0,
+        "roc_auc": 1.0,
+        "runtime_seconds": 0.3934926250076387,
+        "sensitivity": 0.96,
+        "specificity": 1.0,
+        "tn": 30,
+        "tp": 48
+      },
+      "model": "classical_rbf_svm",
+      "representation": "clinical",
+      "source": "reused Phase 1 one-time locked evaluation; not re-evaluated"
+    },
+    "classical_6_pca": {
+      "bootstrap_intervals": {
+        "roc_auc": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 0.9893333333333333,
+          "estimate": 0.9973333333333333
+        },
+        "sensitivity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 0.98,
+          "ci95_low": 0.84,
+          "estimate": 0.92
+        },
+        "specificity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 0.9,
+          "estimate": 0.9666666666666667
+        }
+      },
+      "budget": 6,
+      "metrics": {
+        "accuracy": 0.9375,
+        "f1": 0.9484536082474226,
+        "fn": 4,
+        "fp": 1,
+        "pr_auc": 0.998383013205282,
+        "precision": 0.9787234042553191,
+        "roc_auc": 0.9973333333333333,
+        "runtime_seconds": 0.2585389169980772,
+        "sensitivity": 0.92,
+        "specificity": 0.9666666666666667,
+        "tn": 29,
+        "tp": 46
+      },
+      "model": "logistic_regression",
+      "representation": "pca",
+      "source": "reused Phase 1 one-time locked evaluation; not re-evaluated"
+    },
+    "classical_8_clinical": {
+      "bootstrap_intervals": {
+        "roc_auc": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 0.9999999999999999,
+          "estimate": 1.0
+        },
+        "sensitivity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 0.94,
+          "estimate": 0.98
+        },
+        "specificity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "estimate": 1.0
+        }
+      },
+      "budget": 8,
+      "features": [
+        "hemo",
+        "al",
+        "dm",
+        "sg",
+        "pcv",
+        "appet",
+        "htn",
+        "sc"
+      ],
+      "metrics": {
+        "accuracy": 0.9875,
+        "f1": 0.98989898989899,
+        "fn": 1,
+        "fp": 0,
+        "pr_auc": 1.0,
+        "precision": 1.0,
+        "roc_auc": 1.0,
+        "runtime_seconds": 0.32744958299736027,
+        "sensitivity": 0.98,
+        "specificity": 1.0,
+        "tn": 30,
+        "tp": 49
+      },
+      "model": "classical_rbf_svm",
+      "representation": "clinical",
+      "source": "reused Phase 1 one-time locked evaluation; not re-evaluated"
+    },
+    "qsvc_6_clinical": {
+      "bootstrap_intervals": {
+        "roc_auc": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 0.992,
+          "estimate": 0.998
+        },
+        "sensitivity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 0.98,
+          "ci95_low": 0.84,
+          "estimate": 0.92
+        },
+        "specificity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "estimate": 1.0
+        }
+      },
+      "feature_map_config": "z_reps1",
+      "features": [
+        "hemo",
+        "al",
+        "dm",
+        "sg",
+        "pcv",
+        "appet"
+      ],
+      "metrics": {
+        "accuracy": 0.95,
+        "f1": 0.9583333333333334,
+        "fn": 4,
+        "fp": 0,
+        "pr_auc": 0.998807843137255,
+        "precision": 1.0,
+        "roc_auc": 0.998,
+        "sensitivity": 0.92,
+        "specificity": 1.0,
+        "tn": 30,
+        "tp": 46
+      },
+      "model": "qsvc",
+      "resources": {
+        "budget": 6,
+        "circuit_depth": 2,
+        "depth_definition": "logical depth after one decomposition of the library feature-map circuit",
+        "entanglement": "none",
+        "execution_mode": "ideal exact statevector",
+        "feature_count": 6,
+        "feature_map": "ZFeatureMap",
+        "feature_map_config": "z_reps1",
+        "feature_map_construction_seconds": 0.0004886250098934397,
+        "gate_count": 12,
+        "inference_kernel_columns": 320,
+        "inference_kernel_rows": 80,
+        "inference_kernel_seconds": 0.14361491599993315,
+        "kernel_backend": "qiskit.quantum_info.Statevector (cached exact overlap)",
+        "kernel_evaluations_inference": 25600,
+        "kernel_evaluations_train": 51040,
+        "model_fit_seconds": 0.0007139170047594234,
+        "parameter_count": 6,
+        "pca_components": null,
+        "pca_explained_variance": null,
+        "pca_fit_n": null,
+        "prediction_wall_seconds": 0.14395770800183527,
+        "preprocessing_fit_n": 320,
+        "qubit_count": 6,
+        "representation": "clinical",
+        "reps": 1,
+        "seed": 20260830,
+        "shots": null,
+        "train_kernel_columns": 320,
+        "train_kernel_rows": 320,
+        "train_kernel_seconds": 0.44974320799519774,
+        "training_wall_seconds": 0.45045712499995716
+      }
+    },
+    "qsvc_6_pca": {
+      "bootstrap_intervals": {
+        "roc_auc": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 0.9873333333333333,
+          "ci95_low": 0.8746333333333333,
+          "estimate": 0.9393333333333332
+        },
+        "sensitivity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 0.96,
+          "ci95_low": 0.78,
+          "estimate": 0.88
+        },
+        "specificity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 0.9333333333333333,
+          "ci95_low": 0.7,
+          "estimate": 0.8333333333333334
+        }
+      },
+      "feature_map_config": "z_reps1",
+      "metrics": {
+        "accuracy": 0.8625,
+        "f1": 0.8888888888888888,
+        "fn": 6,
+        "fp": 5,
+        "pr_auc": 0.9725873327165453,
+        "precision": 0.8979591836734694,
+        "roc_auc": 0.9393333333333332,
+        "sensitivity": 0.88,
+        "specificity": 0.8333333333333334,
+        "tn": 25,
+        "tp": 44
+      },
+      "model": "qsvc",
+      "resources": {
+        "budget": 6,
+        "circuit_depth": 2,
+        "depth_definition": "logical depth after one decomposition of the library feature-map circuit",
+        "entanglement": "none",
+        "execution_mode": "ideal exact statevector",
+        "feature_count": 6,
+        "feature_map": "ZFeatureMap",
+        "feature_map_config": "z_reps1",
+        "feature_map_construction_seconds": 0.00047166598960757256,
+        "gate_count": 12,
+        "inference_kernel_columns": 320,
+        "inference_kernel_rows": 80,
+        "inference_kernel_seconds": 0.17869849999260623,
+        "kernel_backend": "qiskit.quantum_info.Statevector (cached exact overlap)",
+        "kernel_evaluations_inference": 25600,
+        "kernel_evaluations_train": 51040,
+        "model_fit_seconds": 0.000780041009420529,
+        "parameter_count": 6,
+        "pca_components": 6,
+        "pca_explained_variance": 0.7184142506573453,
+        "pca_fit_n": 320,
+        "prediction_wall_seconds": 0.17896062499494292,
+        "preprocessing_fit_n": 320,
+        "qubit_count": 6,
+        "representation": "pca",
+        "reps": 1,
+        "seed": 20261424,
+        "shots": null,
+        "train_kernel_columns": 320,
+        "train_kernel_rows": 320,
+        "train_kernel_seconds": 0.46202570899913553,
+        "training_wall_seconds": 0.46280575000855606
+      }
+    },
+    "qsvc_8_clinical": {
+      "bootstrap_intervals": {
+        "roc_auc": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 0.9999999999999999,
+          "estimate": 1.0
+        },
+        "sensitivity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "estimate": 1.0
+        },
+        "specificity": {
+          "bootstrap_resamples": 2000,
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "estimate": 1.0
+        }
+      },
+      "feature_map_config": "z_reps1",
+      "features": [
+        "hemo",
+        "al",
+        "dm",
+        "sg",
+        "pcv",
+        "appet",
+        "htn",
+        "sc"
+      ],
+      "metrics": {
+        "accuracy": 1.0,
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "pr_auc": 1.0,
+        "precision": 1.0,
+        "roc_auc": 1.0,
+        "sensitivity": 1.0,
+        "specificity": 1.0,
+        "tn": 30,
+        "tp": 50
+      },
+      "model": "qsvc",
+      "resources": {
+        "budget": 8,
+        "circuit_depth": 2,
+        "depth_definition": "logical depth after one decomposition of the library feature-map circuit",
+        "entanglement": "none",
+        "execution_mode": "ideal exact statevector",
+        "feature_count": 8,
+        "feature_map": "ZFeatureMap",
+        "feature_map_config": "z_reps1",
+        "feature_map_construction_seconds": 0.0074040840117959306,
+        "gate_count": 16,
+        "inference_kernel_columns": 320,
+        "inference_kernel_rows": 80,
+        "inference_kernel_seconds": 0.1981919160025427,
+        "kernel_backend": "qiskit.quantum_info.Statevector (cached exact overlap)",
+        "kernel_evaluations_inference": 25600,
+        "kernel_evaluations_train": 51040,
+        "model_fit_seconds": 0.0020549579930957407,
+        "parameter_count": 8,
+        "pca_components": null,
+        "pca_explained_variance": null,
+        "pca_fit_n": null,
+        "prediction_wall_seconds": 0.19847962500352878,
+        "preprocessing_fit_n": 320,
+        "qubit_count": 8,
+        "representation": "clinical",
+        "reps": 1,
+        "seed": 20260832,
+        "shots": null,
+        "train_kernel_columns": 320,
+        "train_kernel_rows": 320,
+        "train_kernel_seconds": 0.5055888339993544,
+        "training_wall_seconds": 0.5076437919924501
+      }
+    }
+  },
+  "policy": "QSVC configurations were frozen from development-only evidence and evaluated once on the shared Phase 1 holdout.",
+  "shared_test_disclosure": "The 80-patient holdout was already used for Phase 1 confirmation; it is not a pristine external validation cohort.",
+  "target_distribution": {
+    "ckd": 50,
+    "not_ckd": 30
+  },
+  "test_n": 80
+}

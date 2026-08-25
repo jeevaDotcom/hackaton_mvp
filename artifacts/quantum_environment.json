@@ -1,0 +1,60 @@
+{
+  "benchmark_executor": {
+    "class": "FastStatevectorFidelity passed to FidelityQuantumKernel",
+    "equivalence_check": "covered by automated test against stock FidelityQuantumKernel",
+    "reason": "Exact cached statevectors avoid repeated reference-sampler circuit construction while preserving |<phi(x)|phi(y)>|^2."
+  },
+  "generated_on": "2026-08-24",
+  "platform": "macOS-26.6.1-arm64-arm-64bit",
+  "python": "3.11.9",
+  "smoke_test": {
+    "circuit": {
+      "circuit_depth": 5,
+      "depth_definition": "logical depth after one decomposition of the library feature-map circuit",
+      "entanglement": "full",
+      "feature_count": 2,
+      "feature_map": "ZZFeatureMap",
+      "feature_map_config": "zz_reps1",
+      "gate_count": 7,
+      "gate_counts": {
+        "cx": 2,
+        "u": 5
+      },
+      "parameter_count": 2,
+      "qubit_count": 2,
+      "reps": 1
+    },
+    "circuit_construction_seconds": 0.0018480830040061846,
+    "execution_mode": "local exact statevector",
+    "fit_predictions": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "fit_seconds": 0.010726666005211882,
+    "kernel_diagonal": [
+      1.000000000000001,
+      1.0000000000000013,
+      1.0000000000000002,
+      1.0000000000000002
+    ],
+    "kernel_evaluation_seconds": 0.007393583990051411,
+    "kernel_matrix_shape": [
+      4,
+      4
+    ],
+    "number_of_qubits": 2,
+    "prediction_seconds": 0.003789916998357512,
+    "simulator_backend": "Qiskit Machine Learning QMLSampler exact statevector mode (stock FidelityQuantumKernel default)",
+    "status": "passed"
+  },
+  "versions": {
+    "numpy": "2.4.6",
+    "qiskit": "2.5.2",
+    "qiskit_aer": "0.17.2",
+    "qiskit_machine_learning": "0.9.1",
+    "scikit_learn": "1.9.0",
+    "scipy": "1.17.1"
+  }
+}

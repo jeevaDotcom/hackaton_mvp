@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.DS_Store
+.coverage
+htmlcov/
+*.log
+.streamlit/secrets.toml
+artifacts/cache/
+artifacts/matplotlib-cache/
+tmp/

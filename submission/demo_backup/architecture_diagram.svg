@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Q-CARE evidence architecture</title>
+  <desc id="desc">Biomedical datasets flow through fold-safe preprocessing and stable feature selection, branch into matched classical SVM and quantum-kernel QSVC models, then reunite for robustness, shift validation, and an evidence verdict.</desc>
+  <rect width="1200" height="675" fill="#F7F5EF"/>
+  <text x="64" y="62" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif" font-size="32" font-weight="700" fill="#191B20">Q-CARE evidence architecture</text>
+  <text x="64" y="92" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif" font-size="16" fill="#5C626C">Same information budget. Separate kernels. One evidence standard.</text>
+
+  <g font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif">
+    <rect x="64" y="132" width="220" height="92" rx="18" fill="#FFFDF8" stroke="#D9DAD5"/>
+    <text x="84" y="164" font-size="14" font-weight="700" fill="#315AD8">BIOMEDICAL DATA</text>
+    <text x="84" y="190" font-size="18" font-weight="650" fill="#191B20">CKD · BD-KDD</text>
+    <text x="84" y="211" font-size="15" fill="#5C626C">Cleveland · Pima</text>
+
+    <path d="M284 178 H328" stroke="#646A73" stroke-width="2"/>
+    <path d="M322 172 L330 178 L322 184" fill="none" stroke="#646A73" stroke-width="2"/>
+
+    <rect x="330" y="132" width="240" height="92" rx="18" fill="#FFFDF8" stroke="#D9DAD5"/>
+    <text x="350" y="164" font-size="14" font-weight="700" fill="#315AD8">FOLD-SAFE PIPELINE</text>
+    <text x="350" y="190" font-size="18" font-weight="650" fill="#191B20">Quality + preprocessing</text>
+    <text x="350" y="211" font-size="15" fill="#5C626C">Stable selection · 24 → 8</text>
+
+    <path d="M570 178 H614" stroke="#646A73" stroke-width="2"/>
+    <path d="M608 172 L616 178 L608 184" fill="none" stroke="#646A73" stroke-width="2"/>
+
+    <rect x="616" y="132" width="220" height="92" rx="18" fill="#FFFDF8" stroke="#D9DAD5"/>
+    <text x="636" y="164" font-size="14" font-weight="700" fill="#315AD8">MATCHED BUDGET</text>
+    <text x="636" y="190" font-size="18" font-weight="650" fill="#191B20">Clinical variables</text>
+    <text x="636" y="211" font-size="15" fill="#5C626C">+ PCA control</text>
+
+    <path d="M836 178 H874" stroke="#646A73" stroke-width="2"/>
+    <path d="M868 172 L876 178 L868 184" fill="none" stroke="#646A73" stroke-width="2"/>
+
+    <rect x="876" y="132" width="260" height="92" rx="18" fill="#FFFDF8" stroke="#D9DAD5"/>
+    <text x="896" y="164" font-size="14" font-weight="700" fill="#315AD8">FROZEN COMPARISON</text>
+    <text x="896" y="190" font-size="18" font-weight="650" fill="#191B20">Same folds · same C</text>
+    <text x="896" y="211" font-size="15" fill="#5C626C">Performance + runtime</text>
+
+    <path d="M1006 224 V262" stroke="#646A73" stroke-width="2"/>
+    <path d="M1000 256 L1006 264 L1012 256" fill="none" stroke="#646A73" stroke-width="2"/>
+    <path d="M726 224 V262" stroke="#646A73" stroke-width="2"/>
+    <path d="M720 256 L726 264 L732 256" fill="none" stroke="#646A73" stroke-width="2"/>
+
+    <rect x="616" y="266" width="220" height="112" rx="20" fill="#F0EFEA" stroke="#191B20" stroke-width="2"/>
+    <text x="638" y="300" font-size="14" font-weight="700" fill="#191B20">CLASSICAL BRANCH</text>
+    <text x="638" y="331" font-size="24" font-weight="700" fill="#191B20">RBF SVM</text>
+    <text x="638" y="357" font-size="15" fill="#5C626C">Sensitivity 1.000</text>
+
+    <rect x="876" y="266" width="260" height="112" rx="20" fill="#E8EDFC" stroke="#315AD8" stroke-width="2"/>
+    <text x="898" y="300" font-size="14" font-weight="700" fill="#315AD8">QUANTUM BRANCH</text>
+    <text x="898" y="331" font-size="24" font-weight="700" fill="#191B20">Fidelity-kernel QSVC</text>
+    <text x="898" y="357" font-size="15" fill="#5C626C">0.985 sensitivity · 464× slower</text>
+
+    <path d="M726 378 V416 H876" stroke="#646A73" stroke-width="2" fill="none"/>
+    <path d="M1006 378 V416 H876" stroke="#315AD8" stroke-width="2" fill="none"/>
+    <path d="M882 410 L874 416 L882 422" fill="none" stroke="#646A73" stroke-width="2"/>
+
+    <rect x="616" y="430" width="520" height="92" rx="20" fill="#FFFDF8" stroke="#D9DAD5"/>
+    <text x="640" y="462" font-size="14" font-weight="700" fill="#315AD8">ROBUSTNESS + RESOURCE EVIDENCE</text>
+    <text x="640" y="490" font-size="17" font-weight="650" fill="#191B20">Missingness · perturbation · training size · finite shots · noise</text>
+    <text x="640" y="512" font-size="15" fill="#5C626C">Every result stays attached to its measured artifact.</text>
+
+    <path d="M876 522 V550" stroke="#9A4F4F" stroke-width="2"/>
+    <path d="M870 544 L876 552 L882 544" fill="none" stroke="#9A4F4F" stroke-width="2"/>
+
+    <rect x="616" y="554" width="250" height="76" rx="18" fill="#F3E8E6" stroke="#9A4F4F"/>
+    <text x="638" y="583" font-size="14" font-weight="700" fill="#8A4B4B">EXTERNAL SHIFT</text>
+    <text x="638" y="610" font-size="20" font-weight="700" fill="#191B20">0.999 → 0.525</text>
+
+    <path d="M866 592 H902" stroke="#646A73" stroke-width="2"/>
+    <path d="M896 586 L904 592 L896 598" fill="none" stroke="#646A73" stroke-width="2"/>
+
+    <rect x="906" y="554" width="230" height="76" rx="18" fill="#E4F0EA" stroke="#287058"/>
+    <text x="928" y="583" font-size="14" font-weight="700" fill="#287058">EVIDENCE VERDICT</text>
+    <text x="928" y="610" font-size="17" font-weight="650" fill="#191B20">Invest further—or stop.</text>
+
+    <rect x="64" y="278" width="474" height="240" rx="24" fill="#191B20"/>
+    <text x="92" y="320" font-size="14" font-weight="700" fill="#9FB3FA">THE DECISION RULE</text>
+    <text x="92" y="365" font-size="31" font-weight="700" fill="#FFFDF8">Quantum is not assumed</text>
+    <text x="92" y="402" font-size="31" font-weight="700" fill="#FFFDF8">to be better.</text>
+    <text x="92" y="449" font-size="17" fill="#D9DAD5">Performance, cost, robustness, and</text>
+    <text x="92" y="476" font-size="17" fill="#D9DAD5">generalisation must support the claim.</text>
+
+    <text x="64" y="642" font-size="13" fill="#5C626C">Research benchmark only · exact/local simulation · no diagnosis, patient risk, hardware advantage, or clinical validation claim</text>
+  </g>
+</svg>

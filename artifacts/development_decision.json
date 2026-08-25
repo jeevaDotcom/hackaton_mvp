@@ -1,0 +1,154 @@
+{
+  "best_pca_control_budget": 6,
+  "full_reference": {
+    "cv_roc_auc": 0.9998958333333332,
+    "cv_sensitivity": 1.0,
+    "cv_specificity": 0.9833333333333334,
+    "decision_score": 0.9969801311728393,
+    "features": [
+      "age",
+      "bp",
+      "sg",
+      "al",
+      "su",
+      "rbc",
+      "pc",
+      "pcc",
+      "ba",
+      "bgr",
+      "bu",
+      "sc",
+      "sod",
+      "pot",
+      "hemo",
+      "pcv",
+      "wc",
+      "rc",
+      "htn",
+      "dm",
+      "cad",
+      "appet",
+      "pe",
+      "ane"
+    ],
+    "model": "random_forest"
+  },
+  "locked_test_was_used": false,
+  "pca_controls": {
+    "4": {
+      "components": 4,
+      "cv_roc_auc": 0.9996875,
+      "cv_sensitivity": 0.99,
+      "cv_specificity": 0.9875,
+      "decision_score": 0.8436669298162573,
+      "explained_variance_mean": 0.5997404201329678,
+      "model": "svm_rbf",
+      "representation": "pca"
+    },
+    "6": {
+      "components": 6,
+      "cv_roc_auc": 0.9998958333333334,
+      "cv_sensitivity": 0.9925,
+      "cv_specificity": 0.9875,
+      "decision_score": 0.8447205954280718,
+      "explained_variance_mean": 0.7232612242796888,
+      "model": "logistic_regression",
+      "representation": "pca"
+    },
+    "8": {
+      "components": 8,
+      "cv_roc_auc": 1.0,
+      "cv_sensitivity": 0.9875,
+      "cv_specificity": 0.9916666666666668,
+      "decision_score": 0.8434919293279,
+      "explained_variance_mean": 0.818898019457291,
+      "model": "logistic_regression",
+      "representation": "pca"
+    }
+  },
+  "protocol": {
+    "development_only": true,
+    "inner_cv": "StratifiedKFold(3 folds)",
+    "outer_cv": "RepeatedStratifiedKFold(5 folds x 2 repeats)",
+    "predefined_tolerance": 0.05,
+    "selection_boundary": "ranked only on each outer-training partition; outer validation untouched"
+  },
+  "selected_budgets": {
+    "4": {
+      "budget": 4,
+      "cv_roc_auc": 0.9842187499999999,
+      "cv_sensitivity": 0.96,
+      "cv_specificity": 0.9666666666666668,
+      "decision_score": 0.9620251956279352,
+      "features_frozen_from_complete_development_set": [
+        "hemo",
+        "pcv",
+        "rc",
+        "sc"
+      ],
+      "features_with_frequency_ge_0_80": 4,
+      "meets_predefined_tolerance": true,
+      "model": "logistic_regression",
+      "pairwise_jaccard_mean": 0.9199999999999999,
+      "representation": "selected",
+      "roc_auc_delta_vs_same_model_full": -0.01578125000000008,
+      "selector": "mutual_information",
+      "sensitivity_delta_vs_same_model_full": -0.02750000000000008,
+      "specificity_delta_vs_same_model_full": -0.033333333333333215,
+      "stable_signature": true
+    },
+    "6": {
+      "budget": 6,
+      "cv_roc_auc": 0.9995312499999999,
+      "cv_sensitivity": 0.985,
+      "cv_specificity": 0.9791666666666666,
+      "decision_score": 0.9672735372520374,
+      "features_frozen_from_complete_development_set": [
+        "hemo",
+        "al",
+        "dm",
+        "sg",
+        "pcv",
+        "appet"
+      ],
+      "features_with_frequency_ge_0_80": 5,
+      "meets_predefined_tolerance": true,
+      "model": "svm_rbf",
+      "pairwise_jaccard_mean": 0.8476190476190477,
+      "representation": "selected",
+      "roc_auc_delta_vs_same_model_full": -0.0004687500000001288,
+      "selector": "wrapper_rfe",
+      "sensitivity_delta_vs_same_model_full": 0.0,
+      "specificity_delta_vs_same_model_full": -0.02083333333333337,
+      "stable_signature": true
+    },
+    "8": {
+      "budget": 8,
+      "cv_roc_auc": 1.0,
+      "cv_sensitivity": 0.9949999999999999,
+      "cv_specificity": 0.9958333333333333,
+      "decision_score": 0.9840599477682811,
+      "features_frozen_from_complete_development_set": [
+        "hemo",
+        "al",
+        "dm",
+        "sg",
+        "pcv",
+        "appet",
+        "htn",
+        "sc"
+      ],
+      "features_with_frequency_ge_0_80": 8,
+      "meets_predefined_tolerance": true,
+      "model": "svm_rbf",
+      "pairwise_jaccard_mean": 0.9120987654320989,
+      "representation": "selected",
+      "roc_auc_delta_vs_same_model_full": 0.0,
+      "selector": "wrapper_rfe",
+      "sensitivity_delta_vs_same_model_full": 0.009999999999999898,
+      "specificity_delta_vs_same_model_full": -0.004166666666666652,
+      "stable_signature": true
+    }
+  },
+  "selection_rule": "Prefer a Phase-0-stable method at the budget; otherwise choose the highest predeclared sensitivity/AUC/specificity/F1/stability score and label it unstable."
+}

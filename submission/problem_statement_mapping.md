@@ -1,0 +1,27 @@
+# Problem Statement Mapping
+
+Q-CARE is evaluated against the original challenge as a research benchmarking platform, not as a clinical product.
+
+| Problem Requirement | Q-CARE Implementation | Evidence | Demo Location | Status |
+|---|---|---|---|---|
+| Hybrid quantum-classical architecture | Classical preprocessing and matched RBF SVM/QSVC branches share folds, preprocessing boundaries, and feature budgets. | `src/phase2/benchmark.py`; `artifacts/quantum_paired_comparison_summary.csv` | CKD Benchmark | FULLY DELIVERED |
+| Biomedical data ingestion | Schema-aware loaders ingest CKD, Cleveland heart disease, Pima diabetes, and BD-KDD sources. | `src/phase1/data.py`; `artifacts/data_provenance.json` | Dataset provenance sections | FULLY DELIVERED |
+| Preprocessing | Missing-value handling, scaling, encoding, and fold-local fitting are implemented with leakage audits. | `artifacts/quantum_preprocessing_audit.json`; `artifacts/selection_fit_audit.json` | CKD Benchmark | FULLY DELIVERED |
+| Feature engineering | Leakage-free stable feature selection produced eight- and six-variable CKD signatures; PCA is retained as a matched-dimensional control. | `reports/feature_stability.csv`; `reports/feature_stability_overall.csv`; `artifacts/quantum_cv_summary.csv` | CKD Benchmark | FULLY DELIVERED |
+| Quantum model | QSVC uses `FidelityQuantumKernel` with the frozen low-depth `ZFeatureMap`. | `artifacts/quantum_config.json`; `artifacts/final_model_manifest.json` | Quantum Evidence | FULLY DELIVERED |
+| Classical baselines | Logistic regression, random forest, SVM, and XGBoost were evaluated; RBF SVM is the matched primary comparator. | `reports/classical_cv_summary.csv`; `artifacts/development_decision.json`; `artifacts/phase3/reference_cv_summary.csv` | CKD Benchmark | FULLY DELIVERED |
+| Model training | Reproducible Phase 1–3 runners create the classical, QSVC, stress-test, and transfer artifacts. | `scripts/run_phase1.py`; `scripts/run_phase2.py`; `scripts/run_phase3.py` | Experiment replay metadata | FULLY DELIVERED |
+| Inference/evaluation workflow | Frozen replay exposes sensitivity, specificity, F1, ROC-AUC, runtime, tolerance, qubits, depth, and source metadata. | `src/results_repository.py`; `tests/test_phase4.py` | CKD Benchmark → Experiment replay | FULLY DELIVERED |
+| Explainability / interpretability | Q-CARE exposes stable, readable clinical features, selection frequency/rank/Jaccard evidence, circuit encoding, and failure-mode interpretation. It does not offer patient-level explanations. | `reports/feature_stability.md`; `artifacts/qsvc_z_reps1_8_circuit.txt` | CKD Benchmark; Quantum Evidence | PARTIALLY DELIVERED |
+| Performance evaluation | Identical-budget comparisons report sensitivity, specificity, F1, ROC-AUC, PR-AUC where applicable, runtime, and tolerance. | `artifacts/quantum_paired_comparison_summary.csv`; `artifacts/phase3/reference_cv_summary.csv`; `artifacts/phase3/external_ckd_metrics.csv` | CKD Benchmark; Robustness & Shift | FULLY DELIVERED |
+| Sensitivity | Repeated internal, robustness, external, and cross-disease sensitivity are reported separately. | `artifacts/phase3/reference_cv_summary.csv`; `artifacts/phase3/external_ckd_metrics.csv` | Overview; Robustness & Shift | FULLY DELIVERED |
+| Specificity | Specificity is displayed beside sensitivity; the QSVC operating-threshold result of 0.010 is kept descriptive and the paired external conclusion is based on both models' AUC uncertainty. | `artifacts/phase3/external_ckd_metrics.csv`; `reports/root_cause/external_auc_bootstrap.csv` | Robustness & Shift | FULLY DELIVERED |
+| Transportability | Internal resampling, stress tests, a BD-KDD cross-cohort audit with PARTIAL target comparability, and two cross-disease methodology tests reveal dataset-dependent behaviour. | `reports/root_cause/external_auc_bootstrap.md`; `reports/root_cause/target_definition_audit.md`; `artifacts/phase3/cross_disease_cv.csv` | Robustness & Shift; Cross-Disease | FULLY DELIVERED |
+| Computational efficiency | Training time and QSVC/classical ratios are measured directly at matched budgets; the measured quantum path is slower. | `artifacts/quantum_paired_comparison_summary.csv`; `reports/quantum/resource_comparison.csv` | Overview; Quantum Evidence | FULLY DELIVERED |
+| Near-term compatibility | Exact statevector, finite-shot, and limited Aer noise simulation are implemented, but no real-hardware run, calibration, mitigation, or latency study was performed. | `artifacts/quantum_environment.json`; `artifacts/quantum_finite_shot_results.csv`; `artifacts/quantum_noise_results.csv` | Quantum Evidence | PARTIALLY DELIVERED |
+| Scalability limitations | Qubit count, circuit depth, quadratic kernel-matrix evaluation pressure, simulator-only execution, and runtime are disclosed. Large-cohort scalability is not demonstrated. | `reports/quantum/resource_comparison.md`; `research/quantum_resource_protocol.md` | Quantum Evidence | RESEARCH LIMITATION |
+| Comprehensive documentation | Protocols, provenance, phase decisions, artifact registry, tests, demo scripts, judge answers, and responsible-use limits are included. | `README.md`; `research/`; `reports/`; `submission/` | Download Evidence Summary | FULLY DELIVERED |
+
+## Mapping conclusion
+
+Q-CARE fully delivers the experimental benchmarking workflow. Interpretability is method-level rather than patient-level; near-term compatibility is simulation-only; and scalability remains a disclosed research limitation.

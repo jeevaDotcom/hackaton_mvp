@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.1",
+  "claims": [
+    {
+      "claim_id": "CLAIM_CKD_QSVC_INTERNAL",
+      "text": "QSVC achieved 0.985 sensitivity in repeated internal cross-validation.",
+      "value_key": "qsvc_sensitivity",
+      "value": 0.985,
+      "artifact": "artifacts/phase3/reference_cv_summary.csv",
+      "allowed": true,
+      "scope": "UCI CKD development cohort; 8 variables; 5-fold CV repeated 10 times"
+    },
+    {
+      "claim_id": "CLAIM_CKD_CLASSICAL_INTERNAL",
+      "text": "The matched classical RBF SVM achieved 1.000 sensitivity in repeated internal cross-validation.",
+      "value_key": "classical_sensitivity",
+      "value": 1.0,
+      "artifact": "artifacts/phase3/reference_cv_summary.csv",
+      "allowed": true,
+      "scope": "UCI CKD development cohort; 8 variables; identical folds"
+    },
+    {
+      "claim_id": "CLAIM_RUNTIME_8",
+      "text": "QSVC training was approximately 464 times slower at eight features in the Phase 2 exact-statevector benchmark.",
+      "value_key": "runtime_ratio_8",
+      "value": 464.11648514474587,
+      "artifact": "artifacts/quantum_cv_summary.csv",
+      "allowed": true,
+      "scope": "Local exact-statevector simulation; not hardware runtime"
+    },
+    {
+      "claim_id": "CLAIM_EXTERNAL_TRANSPORT",
+      "text": "On the BD-KDD cross-cohort stress test, both frozen models performed at approximately random discrimination: RBF SVM ROC-AUC 0.511 [95% CI 0.475-0.546] and QSVC ROC-AUC 0.525 [95% CI 0.489-0.561]. Target comparability with UCI CKD was only partial.",
+      "values": {
+        "external_classical_roc_auc": 0.5105651851213981,
+        "external_classical_ci95_low": 0.4750038955660258,
+        "external_classical_ci95_high": 0.5455950374589428,
+        "external_roc_auc": 0.5253806378066733,
+        "external_qsvc_ci95_low": 0.48911291810700097,
+        "external_qsvc_ci95_high": 0.5605685681129469,
+        "external_paired_auc_delta": 0.014815452685275177,
+        "external_paired_delta_ci95_low": -0.029205263524790095,
+        "external_paired_delta_ci95_high": 0.058134967010706584
+      },
+      "artifact": "reports/root_cause/external_auc_bootstrap.md",
+      "artifacts": [
+        "artifacts/phase3/external_ckd_metrics.csv",
+        "reports/root_cause/external_auc_bootstrap.csv",
+        "reports/root_cause/target_definition_audit.md",
+        "reports/root_cause/univariate_auc.csv"
+      ],
+      "allowed": true,
+      "scope": "Frozen UCI-development-trained models applied without external retraining; independent BD-KDD cross-cohort transport stress test; target comparability PARTIAL; not like-for-like clinical external validation; no external classical-vs-quantum superiority interpretation"
+    },
+    {
+      "claim_id": "CLAIM_EXTERNAL_QSVC_SUPERIORITY",
+      "text": "QSVC outperformed classical SVM externally.",
+      "artifact": "reports/root_cause/external_auc_bootstrap.md",
+      "allowed": false,
+      "reason": "The paired QSVC-minus-SVM ROC-AUC difference was +0.0148 with 95% CI -0.0292 to +0.0581; the interval includes zero"
+    },
+    {
+      "claim_id": "CLAIM_CLINICAL_GRADE",
+      "text": "QSVC achieves clinical-grade sensitivity.",
+      "artifact": "research/final_claims.md",
+      "allowed": false,
+      "reason": "No prospective or clinical validation"
+    },
+    {
+      "claim_id": "CLAIM_QUANTUM_SUPERIORITY",
+      "text": "Quantum outperforms classical machine learning.",
+      "artifact": "research/final_claims.md",
+      "allowed": false,
+      "reason": "Matched comparisons favour the classical reference overall"
+    },
+    {
+      "claim_id": "CLAIM_COST_REDUCTION",
+      "text": "The reduced signature lowers diagnostic costs.",
+      "artifact": "research/final_claims.md",
+      "allowed": false,
+      "reason": "No economic evaluation"
+    }
+  ]
+}

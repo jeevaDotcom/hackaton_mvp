@@ -1,0 +1,379 @@
+{
+  "claim_status": "research benchmark only",
+  "classifiers": {
+    "classical": {
+      "C": 0.5,
+      "gamma": "scale",
+      "kernel": "rbf"
+    },
+    "qsvc": {
+      "C": 0.5,
+      "backend": "exact local cached statevector fidelity",
+      "entanglement": "none",
+      "family": "ZFeatureMap",
+      "feature_map_config": "z_reps1",
+      "reps": 1
+    }
+  },
+  "development_rows": 320,
+  "display_metrics": {
+    "classical_rbf_svm_6": {
+      "development_5x10_cv": {
+        "f1": {
+          "ci95_high": 0.9977472655639591,
+          "ci95_low": 0.99188007712297,
+          "mean": 0.9948136713434645,
+          "std": 0.01032240210883901
+        },
+        "roc_auc": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.999799465858793,
+          "mean": 0.9999166666666668,
+          "std": 0.00041239304942113786
+        },
+        "sensitivity": {
+          "ci95_high": 1.0,
+          "ci95_low": 0.9949122762287957,
+          "mean": 0.9975,
+          "std": 0.009105391988558552
+        },
+        "specificity": {
+          "ci95_high": 0.994758333572351,
+          "ci95_low": 0.9785749997609822,
+          "mean": 0.9866666666666666,
+          "std": 0.02847204938833667
+        }
+      },
+      "locked_test_display_only": {
+        "accuracy": 0.975,
+        "f1": 0.9795918367346939,
+        "fn": 2,
+        "fp": 0,
+        "pr_auc": 1.0,
+        "precision": 1.0,
+        "roc_auc": 1.0,
+        "runtime_seconds": 0.3934926250076387,
+        "sensitivity": 0.96,
+        "specificity": 1.0,
+        "tn": 30,
+        "tp": 48
+      },
+      "locked_test_source_artifact": "artifacts/phase2_locked_test_evaluation.json",
+      "source_artifact": "artifacts/phase3/reference_cv_summary.csv"
+    },
+    "classical_rbf_svm_8": {
+      "development_5x10_cv": {
+        "f1": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "roc_auc": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "sensitivity": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "specificity": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "mean": 1.0,
+          "std": 0.0
+        }
+      },
+      "locked_test_display_only": {
+        "accuracy": 0.9875,
+        "f1": 0.98989898989899,
+        "fn": 1,
+        "fp": 0,
+        "pr_auc": 1.0,
+        "precision": 1.0,
+        "roc_auc": 1.0,
+        "runtime_seconds": 0.32744958299736027,
+        "sensitivity": 0.98,
+        "specificity": 1.0,
+        "tn": 30,
+        "tp": 49
+      },
+      "locked_test_source_artifact": "artifacts/phase2_locked_test_evaluation.json",
+      "source_artifact": "artifacts/phase3/reference_cv_summary.csv"
+    },
+    "qsvc_6": {
+      "development_5x10_cv": {
+        "f1": {
+          "ci95_high": 0.9855996454150133,
+          "ci95_low": 0.9771284699411211,
+          "mean": 0.9813640576780672,
+          "std": 0.014903710773146771
+        },
+        "roc_auc": {
+          "ci95_high": 0.9966883862731355,
+          "ci95_low": 0.9931866137268643,
+          "mean": 0.9949374999999999,
+          "std": 0.00616082211775885
+        },
+        "sensitivity": {
+          "ci95_high": 0.9834450750262078,
+          "ci95_low": 0.9695549249737925,
+          "mean": 0.9765000000000001,
+          "std": 0.024437550563651426
+        },
+        "specificity": {
+          "ci95_high": 0.9877089236855099,
+          "ci95_low": 0.9672910763144902,
+          "mean": 0.9775,
+          "std": 0.03592201492765384
+        }
+      },
+      "locked_test_display_only": {
+        "accuracy": 0.95,
+        "f1": 0.9583333333333334,
+        "fn": 4,
+        "fp": 0,
+        "pr_auc": 0.998807843137255,
+        "precision": 1.0,
+        "roc_auc": 0.998,
+        "sensitivity": 0.92,
+        "specificity": 1.0,
+        "tn": 30,
+        "tp": 46
+      },
+      "locked_test_source_artifact": "artifacts/phase2_locked_test_evaluation.json",
+      "source_artifact": "artifacts/phase3/reference_cv_summary.csv"
+    },
+    "qsvc_8": {
+      "development_5x10_cv": {
+        "f1": {
+          "ci95_high": 0.9906059004087461,
+          "ci95_low": 0.9822588369017994,
+          "mean": 0.9864323686552727,
+          "std": 0.01468535514298153
+        },
+        "roc_auc": {
+          "ci95_high": 0.9998433206462126,
+          "ci95_low": 0.9988650126871207,
+          "mean": 0.9993541666666667,
+          "std": 0.001721180125982491
+        },
+        "sensitivity": {
+          "ci95_high": 0.9920320484724273,
+          "ci95_low": 0.9779679515275727,
+          "mean": 0.985,
+          "std": 0.024743582965269677
+        },
+        "specificity": {
+          "ci95_high": 0.9902173295524634,
+          "ci95_low": 0.9697826704475365,
+          "mean": 0.98,
+          "std": 0.03595159254890834
+        }
+      },
+      "locked_test_display_only": {
+        "accuracy": 1.0,
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "pr_auc": 1.0,
+        "precision": 1.0,
+        "roc_auc": 1.0,
+        "sensitivity": 1.0,
+        "specificity": 1.0,
+        "tn": 30,
+        "tp": 50
+      },
+      "locked_test_source_artifact": "artifacts/phase2_locked_test_evaluation.json",
+      "source_artifact": "artifacts/phase3/reference_cv_summary.csv"
+    }
+  },
+  "environment": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.5",
+    "python": "3.11.9",
+    "qiskit": "2.5.2",
+    "qiskit_machine_learning": "0.9.1",
+    "scikit_learn": "1.9.0"
+  },
+  "external_sources": {
+    "bd_kdd": {
+      "doi": "10.7910/DVN/MB1LES",
+      "license": "CC0-1.0",
+      "role": "full-signature external transfer stress test"
+    },
+    "cleveland": {
+      "role": "methodology validation",
+      "uci_dataset_id": 45
+    },
+    "pima": {
+      "openml_dataset_id": 37,
+      "population": "women of Pima heritage near Phoenix, Arizona; not Indian population",
+      "role": "methodology validation"
+    }
+  },
+  "feature_signatures": {
+    "6": [
+      "hemo",
+      "al",
+      "dm",
+      "sg",
+      "pcv",
+      "appet"
+    ],
+    "8": [
+      "hemo",
+      "al",
+      "dm",
+      "sg",
+      "pcv",
+      "appet",
+      "htn",
+      "sc"
+    ]
+  },
+  "frozen_phase_hashes": {
+    "phase1_locked_evaluation": "4a057eb61b2fc608b0c483de9f82d05bad930ff3d7da947de20792947b2aa74d",
+    "phase1_locked_predictions": "06d2b83a61a3e2413522e7f6f35417e4486f97daa7611ebaa8d10c55e62a6e0e",
+    "phase2_locked_evaluation": "af25afdd8f39bd6d927c08ba763172e1a90681d6c7dd5605c4ffc4ca04342b87",
+    "phase2_locked_predictions": "c3c075a2d1a1c3138bd83e0ae5c03261adefceb995ec0552fb63e92cd8cf89d8",
+    "phase2_quantum_config": "f2a2865bce8f02f66e25703f752ecb2067e9de7f0bb3157e418bc0a520fb8d1f"
+  },
+  "generated_on": "2026-08-24",
+  "models": [
+    {
+      "budget": 8,
+      "features": [
+        "hemo",
+        "al",
+        "dm",
+        "sg",
+        "pcv",
+        "appet",
+        "htn",
+        "sc"
+      ],
+      "model": "classical_rbf_svm",
+      "path": "artifacts/models/final_classical_8.joblib",
+      "quantum_resources": null,
+      "reload_smoke_test": "passed",
+      "sha256": "fac24db223e070fcb18f1b677ebaaf6636d9a3efa1e6b9de9ac53070f401c3ee"
+    },
+    {
+      "budget": 8,
+      "features": [
+        "hemo",
+        "al",
+        "dm",
+        "sg",
+        "pcv",
+        "appet",
+        "htn",
+        "sc"
+      ],
+      "model": "qsvc",
+      "path": "artifacts/models/final_qsvc_8.joblib",
+      "quantum_resources": {
+        "circuit_depth": 2,
+        "depth_definition": "logical depth after one decomposition of the library feature-map circuit",
+        "entanglement": "none",
+        "execution_mode": "ideal exact statevector",
+        "feature_count": 8,
+        "feature_map": "ZFeatureMap",
+        "feature_map_config": "z_reps1",
+        "feature_map_construction_seconds": 0.019940249985666014,
+        "gate_count": 16,
+        "gate_counts": {
+          "u": 16
+        },
+        "kernel_backend": "qiskit.quantum_info.Statevector (cached exact overlap)",
+        "parameter_count": 8,
+        "qubit_count": 8,
+        "reps": 1,
+        "seed": 20260824,
+        "shots": null
+      },
+      "reload_smoke_test": "passed",
+      "sha256": "6ff9b760a554469eb5f1c1714a8bb00179c0cec498350e1cdd2ee5064f6371b2"
+    },
+    {
+      "budget": 6,
+      "features": [
+        "hemo",
+        "al",
+        "dm",
+        "sg",
+        "pcv",
+        "appet"
+      ],
+      "model": "classical_rbf_svm",
+      "path": "artifacts/models/final_classical_6.joblib",
+      "quantum_resources": null,
+      "reload_smoke_test": "passed",
+      "sha256": "f6e0d470f7161e730959b0bf6a3cbbf6415f84abf47faf0b6da0df60d59d0cb6"
+    },
+    {
+      "budget": 6,
+      "features": [
+        "hemo",
+        "al",
+        "dm",
+        "sg",
+        "pcv",
+        "appet"
+      ],
+      "model": "qsvc",
+      "path": "artifacts/models/final_qsvc_6.joblib",
+      "quantum_resources": {
+        "circuit_depth": 2,
+        "depth_definition": "logical depth after one decomposition of the library feature-map circuit",
+        "entanglement": "none",
+        "execution_mode": "ideal exact statevector",
+        "feature_count": 6,
+        "feature_map": "ZFeatureMap",
+        "feature_map_config": "z_reps1",
+        "feature_map_construction_seconds": 0.002595166995888576,
+        "gate_count": 12,
+        "gate_counts": {
+          "u": 12
+        },
+        "kernel_backend": "qiskit.quantum_info.Statevector (cached exact overlap)",
+        "parameter_count": 6,
+        "qubit_count": 6,
+        "reps": 1,
+        "seed": 20260824,
+        "shots": null
+      },
+      "reload_smoke_test": "passed",
+      "sha256": "7a5cafbfc4ddce4d27bdab10b896f8fb1bb262def94621cf0baccdb8fb092aef"
+    }
+  ],
+  "output_contract": {
+    "category": "class_and_decision_score",
+    "probability_permitted": false,
+    "risk_percentage_permitted": false,
+    "threshold": 0.0
+  },
+  "primary_freeze": {
+    "classical_model": "final_classical_8.joblib",
+    "input_budget": 8,
+    "optional_input_budget": 6,
+    "qsvc_model": "final_qsvc_8.joblib"
+  },
+  "schema_version": "1.0",
+  "source_hashes": {
+    "artifacts/splits.json": "2b19a027acd86ac29a21b8a149f63f952edcc7ff2837cd03df1c5142a1914dde",
+    "data/external/raw/BD-KDD_Dataset.csv": "cb9d92f77f20859edaf73ba9236d8fed814e854016ab2eaf83e13ddba45bfaeb",
+    "data/external/raw/BD-KDD_Dictionary.md": "838ad0ff94641dce6151d355376368b0b40df1fe787cc62233654d183aa2be6e",
+    "data/external/raw/BD-KDD_dataverse_metadata.json": "2ad20e2076ee00790100825b31176e79df4f6ad6dfa62cd832c25b90fe5a69a6",
+    "data/external/raw/heart_disease/processed.cleveland.data": "a74b7efa387bc9d108d7d0115d831fe9b414b29ae7124f331b622b4efa0427c8",
+    "data/external/raw/openml_37_pima_diabetes.arff": "4eddd5b2b64679e8888348e306520a393d6a28e1ddc9643cfb76fc5d912d6d40",
+    "data/external/raw/uci_heart_disease_45.zip": "b17cd273da9ce1caa4710fce80227ea454d4dbf9fcbc8e6a9121672751563adc",
+    "data/processed/ckd_clean.csv": "3ac00454f80f6727c651a468f0c867bc2892d487504bcb93cdc0b1fffdd93174"
+  },
+  "training_scope": "frozen UCI CKD development partition only; locked test excluded"
+}

@@ -1,0 +1,17 @@
+dataset,feature,method,n_observed,missing_count,auc,ci95_low,ci95_high,direction,ci_includes_0_5
+UCI full source cohort,hemo,raw numeric; increasing value,348,52,0.031232979302832246,0.016084133306100215,0.04869664011437908,negative (raw numeric; increasing value),False
+UCI full source cohort,al,raw numeric; increasing value,354,46,0.8708133971291866,0.8397129186602871,0.8995215311004785,positive (raw numeric; increasing value),False
+UCI full source cohort,dm,binary indicator: yes=1,398,2,0.774,0.744,0.806,positive (binary indicator: yes=1),False
+UCI full source cohort,sg,raw numeric; increasing value,353,47,0.07866379310344826,0.05382916114058355,0.10694670092838196,negative (raw numeric; increasing value),False
+UCI full source cohort,pcv,raw numeric; increasing value,329,71,0.04755221199191556,0.026608466202560074,0.07219945355191255,negative (raw numeric; increasing value),False
+UCI full source cohort,appet,binary indicator: poor=1,399,1,0.664,0.634,0.694,positive (binary indicator: poor=1),False
+UCI full source cohort,htn,binary indicator: yes=1,398,2,0.794,0.762,0.824,positive (binary indicator: yes=1),False
+UCI full source cohort,sc,raw numeric; increasing value,383,17,0.9226745870762099,0.8951724137931035,0.946682845552014,positive (raw numeric; increasing value),False
+BD-KDD,hemo,raw numeric; increasing value,988,0,0.49441908909364524,0.4588938847814587,0.5307464724624488,uncertain / includes random orientation,True
+BD-KDD,al,raw numeric; increasing value,988,0,0.49812397741391823,0.4633055107907179,0.5332749511003949,uncertain / includes random orientation,True
+BD-KDD,dm,binary indicator: yes=1,988,0,0.5022655791886561,0.4706774081774082,0.5340916360147129,uncertain / includes random orientation,True
+BD-KDD,sg,raw numeric; increasing value,988,0,0.5170871827676562,0.4808766151221772,0.5514965637007058,uncertain / includes random orientation,True
+BD-KDD,pcv,raw numeric; increasing value,988,0,0.4708386128504472,0.4353643071838338,0.5077832896619878,uncertain / includes random orientation,True
+BD-KDD,appet,binary indicator: poor=1,988,0,0.5152993229916307,0.48387440695133005,0.5460612239458393,uncertain / includes random orientation,True
+BD-KDD,htn,binary indicator: yes=1,988,0,0.5053041206887361,0.47438362919132154,0.5368363185670878,uncertain / includes random orientation,True
+BD-KDD,sc,raw numeric; increasing value,988,0,0.5182353495962964,0.4828045615027864,0.5550081089282273,uncertain / includes random orientation,True

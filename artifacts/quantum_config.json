@@ -1,0 +1,73 @@
+{
+  "classifier_C": 0.5,
+  "clinical_signatures": {
+    "4": [
+      "hemo",
+      "pcv",
+      "rc",
+      "sc"
+    ],
+    "6": [
+      "hemo",
+      "al",
+      "dm",
+      "sg",
+      "pcv",
+      "appet"
+    ],
+    "8": [
+      "hemo",
+      "al",
+      "dm",
+      "sg",
+      "pcv",
+      "appet",
+      "htn",
+      "sc"
+    ]
+  },
+  "configuration_frozen_before_phase2_locked_evaluation": true,
+  "development_choice_sha256": "09ed96c0b74b73b72820962b5d4267aa4471779d721d2cd7854f8ee2703837c7",
+  "development_cv_sha256": "15fff7fcc21d42a25a615de59f0d25c55b60b5a8db02e07d2909f83a59ba338e",
+  "entanglement": "none",
+  "environment_artifact_sha256": "95dd09b49d4ea24b76cce29ea7c9f7f0aefd507bf3bbf0afe9bb65818c905271",
+  "feature_map": "ZFeatureMap",
+  "feature_map_config": "z_reps1",
+  "finite_shots": [
+    256,
+    1024,
+    4096
+  ],
+  "frozen_on": "2026-08-24",
+  "ideal_kernel_backend": "FidelityQuantumKernel with exact cached qiskit Statevector fidelity",
+  "locked_test_was_used_for_configuration": false,
+  "noise_conditions": {
+    "ideal": {
+      "one_qubit_depolarizing": 0.0,
+      "readout": 0.0,
+      "two_qubit_depolarizing": 0.0
+    },
+    "low": {
+      "one_qubit_depolarizing": 0.001,
+      "readout": 0.01,
+      "two_qubit_depolarizing": 0.01
+    },
+    "moderate": {
+      "one_qubit_depolarizing": 0.005,
+      "readout": 0.03,
+      "two_qubit_depolarizing": 0.03
+    }
+  },
+  "pca_components": [
+    8,
+    6,
+    4
+  ],
+  "predefined_tolerance": 0.05,
+  "preprocessing": "Phase 1 median/mode imputation, binary one-hot encoding and standard scaling fitted on training rows only; PCA fitted after preprocessing on training rows only.",
+  "reps": 1,
+  "selection_rule": "first retain configurations whose sensitivity, specificity, ROC-AUC and F1 degradations are each <=0.05 versus the identical-fold classical SVM; then rank lexicographically by sensitivity, ROC-AUC, F1, specificity, lower depth and lower training wall time",
+  "selection_scope": "development data only; primary eight-variable clinical representation",
+  "shared_test_disclosure": "The 80-patient holdout was already used for Phase 1 confirmation; it is not a pristine external validation cohort.",
+  "split_artifact_sha256": "2b19a027acd86ac29a21b8a149f63f952edcc7ff2837cd03df1c5142a1914dde"
+}
