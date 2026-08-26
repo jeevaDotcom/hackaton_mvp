@@ -114,9 +114,10 @@ await capture(robustnessHeading, "10_robustness.png");
 const externalHeading = await openDisclosure("Dataset compatibility & transportability", "External transportability");
 await capture(externalHeading, "11_external_transportability.png");
 await page.waitForTimeout(1200);
-await capture(await heading("Feature transportability"), "12_feature_transportability.png");
+await capture(await heading("Feature transportability"), "12_single_page_feature_transportability.png");
 const evidenceHeading = await openDisclosure("Q-CARE model evidence report", "Q-CARE model evidence report");
-await capture(evidenceHeading, "13_final_evidence_report.png");
+const finalStatus = await unique(page.locator("div.final-status"), "final evidence status");
+await capture(finalStatus, "13_final_evidence_report.png", 140);
 
 await browser.close();
 if (errors.length) throw new Error(`Browser errors: ${errors.join(" | ")}`);

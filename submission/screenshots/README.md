@@ -38,7 +38,7 @@ Phase 3D evidence files were regenerated on 25 August 2026 from the final redesi
 | `09_quantum_circuits.png` | Single-page workstation | Actual frozen QSVC and VQC circuit disclosures | Quantum technical evidence |
 | `10_robustness.png` | Single-page workstation | Frozen robustness tabs with no invented VQC values | Robustness evidence |
 | `11_external_transportability.png` | Single-page workstation | External AUCs, intervals, and PARTIAL comparability | Transport evidence |
-| `12_feature_transportability.png` | Single-page workstation | UCI-to-BD-KDD feature-signal comparison | Root-cause evidence |
+| `12_single_page_feature_transportability.png` | Single-page workstation | UCI-to-BD-KDD feature-signal comparison | Root-cause evidence |
 | `13_final_evidence_report.png` | Single-page workstation | Final frozen status and clinical-use boundary | Demo close |
 
 Metric-by-metric verification is recorded in [`../screenshot_validation.md`](../screenshot_validation.md). Reproducible capture paths are `scripts/capture_phase3d_screenshots.mjs`, `scripts/capture_live_vqc_screenshots.mjs`, and `scripts/capture_single_page_screenshots.mjs`.

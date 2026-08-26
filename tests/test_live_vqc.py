@@ -31,8 +31,7 @@ def test_vqc_artifacts_load_and_hashes_match(service: LiveVQCService) -> None:
         path = ROOT / metadata[f"{key}_path"]
         assert path.exists()
         assert sha256(path) == metadata[f"{key}_sha256"]
-    loaded = service.load_persisted_vqc()
-    assert loaded.weights.shape == (16,)
+    assert service.weights.shape == (16,)
 
 
 def test_live_feature_order_is_frozen(service: LiveVQCService) -> None:
@@ -75,7 +74,8 @@ def test_prediction_execution_is_bounded_and_reproducible(service: LiveVQCServic
 
 def test_live_score_uses_worker_safe_frozen_circuit_execution(service: LiveVQCService) -> None:
     source = (ROOT / "src/live_vqc.py").read_text()
-    assert "self.vqc = VQC.from_dill" not in source
+    assert "from_dill" not in source
+    assert "qiskit_machine_learning" not in source
     assert service.vqc_score(service.presets["mixed"]["profile"]) == pytest.approx(0.5094535749605267)
 
 

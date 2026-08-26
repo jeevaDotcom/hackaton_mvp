@@ -147,7 +147,8 @@ h3 { font-size: 24px !important; line-height: 1.2 !important; font-weight: 650 !
 .metric-strip-item { padding: var(--space-4) var(--space-4) var(--space-4) 0; transition: background-color 180ms ease-out; }
 .metric-strip-item + .metric-strip-item { padding-left: var(--space-4); border-left: 1px solid var(--border); }
 .metric-strip-label { color: var(--text-secondary); font-size: 13px; line-height: 1.35; }
-.metric-strip-value { margin-top: var(--space-2); font-size: 32px; font-weight: 700; letter-spacing: -0.045em; }
+.metric-strip-value { margin-top: var(--space-2); font-size: 28px; font-weight: 700; letter-spacing: -0.045em; }
+.metric-strip-item:last-child .metric-strip-value { font-size: 24px; }
 .metric-strip-note { margin-top: var(--space-1); color: var(--text-secondary); font-size: 12px; line-height: 1.45; }
 
 /* Narrative and metadata primitives. */
@@ -369,6 +370,7 @@ button:focus-visible, input:focus-visible, [role="radio"]:focus-visible, summary
   .not-equal-statement span:last-child { text-align: left; }
   .influence-row p { grid-column: 1; margin-top: 0; }
   .metric-strip-item, .metric-strip-item + .metric-strip-item { padding: var(--space-3) 0; border-left: 0; border-top: 1px solid var(--border); }
+  .metric-strip-item:last-child .metric-strip-value { font-size: 28px; }
   .metric-strip-item:first-child { border-top: 0; }
   .metadata-row { grid-template-columns: 1fr; gap: var(--space-1); }
   .evidence-row { grid-template-columns: 1fr; gap: var(--space-2); padding: var(--space-4) 0; }

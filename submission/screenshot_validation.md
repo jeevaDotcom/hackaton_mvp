@@ -27,7 +27,7 @@ Validated on **25 August 2026** against the Phase 3D screenshot files and frozen
 | `live_05_model_comparison.png` | Same-profile decisions and agreement | Frozen VQC/QSVC/RBF artifacts | VQC CKD-like; QSVC/RBF non-CKD-like; `2 OF 3 AGREE` | Same | PASS |
 | `live_06_review_checklist.png` | Review prompts and limitations | Live-page safety contract | Six generic prompts; clinical-review limitation visible | Same | PASS |
 | `live_07_quantum_circuit.png` | Model process and real circuit | `metadata.json`; `circuit.txt` | 8 values/qubits; ZFeatureMap; trainable RealAmplitudes; linear entanglement; COBYLA | Same | PASS |
-| `01_full_page_hero.png`–`13_final_evidence_report.png` | Integrated single-page patient, upload, benchmark, circuit, robustness, transport, and verdict evidence | Frozen Phase 1–3D artifacts; `artifacts/live_vqc/`; claim registry | Same metrics and interpretations as the validated source panels; no new scientific estimates | Same | PASS |
+| `01_full_page_hero.png`–`11_external_transportability.png`, `12_single_page_feature_transportability.png`, `13_final_evidence_report.png` | Integrated single-page patient, upload, benchmark, circuit, robustness, transport, and verdict evidence | Frozen Phase 1–3D artifacts; `artifacts/live_vqc/`; claim registry | Same metrics and interpretations as the validated source panels; no new scientific estimates | Same | PASS |
 
 ## Result
 

@@ -1,0 +1,34 @@
+{
+  "repository": "jeevaDotcom/hackaton_mvp",
+  "branch": "main",
+  "commit_sha": "HEAD (resolve with: git rev-parse HEAD)",
+  "build_date": "2026-08-26",
+  "python_version": "3.11.9",
+  "streamlit_version": "1.62.0",
+  "qiskit_version": "2.5.2",
+  "scikit_learn_version": "1.9.0",
+  "test_count": 97,
+  "primary_ckd_feature_count": 8,
+  "primary_qsvc_configuration": {
+    "feature_map": "ZFeatureMap",
+    "reps": 1,
+    "entanglement": "none",
+    "qubits": 8,
+    "C": 0.5
+  },
+  "vqc_configuration": {
+    "feature_map": "ZFeatureMap",
+    "feature_map_reps": 1,
+    "ansatz": "RealAmplitudes",
+    "ansatz_reps": 1,
+    "ansatz_entanglement": "linear",
+    "qubits": 8,
+    "optimizer": "COBYLA",
+    "optimizer_evaluations": 40,
+    "weight_count": 16
+  },
+  "live_runtime_qsvc_implementation": "Analytical separable ZFeatureMap(reps=1) fidelity kernel: product of cos^2 feature differences; frozen support vectors, dual coefficients, intercept, and classes; no native Qiskit execution",
+  "live_runtime_vqc_implementation": "Deterministic exact NumPy statevector execution of the frozen trained eight-qubit VQC circuit; no native Qiskit deserialization or execution",
+  "screenshot_count": 36,
+  "final_status": "SUBMISSION READY — RESEARCH EVIDENCE ONLY; NOT A CLINICAL DIAGNOSTIC SYSTEM"
+}

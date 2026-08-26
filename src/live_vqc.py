@@ -151,13 +151,6 @@ class LiveVQCService:
         self._qsvc_intercept = float(qsvc_model.intercept_[0])
         self._qsvc_classes = np.asarray(qsvc_model.classes_, dtype=int)
 
-    def load_persisted_vqc(self) -> Any:
-        """Load the serialized Qiskit model for artifact-integrity checks."""
-
-        from qiskit_machine_learning.algorithms import VQC
-
-        return VQC.from_dill(self.artifact_dir / "model/vqc.model")
-
     def _profile_frame(self, profile: Mapping[str, Any]) -> pd.DataFrame:
         missing = [feature for feature in self.feature_order if feature not in profile]
         if missing:
