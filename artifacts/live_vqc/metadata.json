@@ -1,0 +1,116 @@
+{
+  "ansatz": "RealAmplitudes",
+  "ansatz_entanglement": "linear",
+  "ansatz_reps": 1,
+  "architecture_difference": {
+    "QSVC": "non-trainable quantum feature map plus fidelity kernel plus classical SVM",
+    "VQC": "trainable parameterised quantum circuit plus classical optimizer"
+  },
+  "artifact_status": "frozen live research demonstration",
+  "classification_threshold": 0.5,
+  "evaluation_split": "existing frozen 80-row locked holdout; previously used in earlier phases and not prospective",
+  "feature_map": "ZFeatureMap",
+  "feature_map_reps": 1,
+  "feature_order": [
+    "hemo",
+    "al",
+    "dm",
+    "sg",
+    "pcv",
+    "appet",
+    "htn",
+    "sc"
+  ],
+  "generated_on": "2026-08-26",
+  "live_inference": "deterministic exact NumPy statevector execution of the frozen trained VQC circuit",
+  "live_inference_seed": 20260826,
+  "live_inference_shots": 4096,
+  "model_path": "artifacts/live_vqc/model/vqc.model",
+  "model_sha256": "acb4d3b3494fd83fcdc6e9e50e6007cb8ee57a18ce6f0f79377f4c81375051e7",
+  "observed_development_ranges": {
+    "al": [
+      0.0,
+      5.0
+    ],
+    "appet": [
+      "good",
+      "poor"
+    ],
+    "dm": [
+      "no",
+      "yes"
+    ],
+    "hemo": [
+      4.8,
+      17.8
+    ],
+    "htn": [
+      "no",
+      "yes"
+    ],
+    "pcv": [
+      14.0,
+      54.0
+    ],
+    "sc": [
+      0.4,
+      76.0
+    ],
+    "sg": [
+      1.005,
+      1.025
+    ]
+  },
+  "optimizer": "COBYLA",
+  "optimizer_evaluations": 40,
+  "optimizer_max_iterations": 40,
+  "preprocessor_path": "artifacts/live_vqc/preprocessor/preprocessor.joblib",
+  "preprocessor_sha256": "f762d80b35e915c26e5724df4b04a4c99b4bf3969d7ca14788e24465dbff3ee1",
+  "qiskit_machine_learning_version": "0.9.1",
+  "qiskit_version": "2.5.2",
+  "qubits": 8,
+  "raw_data_sha256": "0f3360c0e9239d3d211bfbbdedbe818e4569e6d7399e7398c9b464f6e8feeebe",
+  "representation": "validated 8-variable clinical representation",
+  "score_semantics": "class-1 circuit measurement weight; not calibrated as a disease probability",
+  "seed": 20260826,
+  "similarity_distance_tertiles": [
+    0.19159835040624631,
+    0.8148900624793551
+  ],
+  "similarity_no_match_threshold": 2.8924724342000863,
+  "splits_sha256": "2b19a027acd86ac29a21b8a149f63f952edcc7ff2837cd03df1c5142a1914dde",
+  "training_dataset": "UCI CKD only",
+  "training_reference": {
+    "al": 0.0,
+    "appet": "good",
+    "dm": "no",
+    "hemo": 12.6,
+    "htn": "no",
+    "pcv": 40.0,
+    "sc": 1.3,
+    "sg": 1.02
+  },
+  "training_sampler": "StatevectorSampler with 1024 shots",
+  "training_split": "existing frozen 320-row development split",
+  "weight_count": 16,
+  "weight_parameter_names": [
+    "\u03b8[0]",
+    "\u03b8[1]",
+    "\u03b8[2]",
+    "\u03b8[3]",
+    "\u03b8[4]",
+    "\u03b8[5]",
+    "\u03b8[6]",
+    "\u03b8[7]",
+    "\u03b8[8]",
+    "\u03b8[9]",
+    "\u03b8[10]",
+    "\u03b8[11]",
+    "\u03b8[12]",
+    "\u03b8[13]",
+    "\u03b8[14]",
+    "\u03b8[15]"
+  ],
+  "weights_path": "artifacts/live_vqc/model/weights.npy",
+  "weights_sha256": "0227c6e21b6937f7bbaf96b5599c0f6ef216f7f414b4fe3a5f9293a5bbc49374"
+}

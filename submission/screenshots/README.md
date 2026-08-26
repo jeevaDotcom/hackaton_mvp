@@ -20,5 +20,25 @@ Phase 3D evidence files were regenerated on 25 August 2026 from the final redesi
 | `mobile_overview.png` | Overview | Narrow-screen hero layout with collapsed navigation | Submission portal, responsive QA |
 | `mobile_external_shift.png` | Robustness & Shift | Narrow-screen external-shift narrative and comparison | Responsive QA, demo backup |
 | `tablet_ckd_benchmark.png` | CKD Benchmark | Tablet layout, persistent navigation, and stacked process flow | Responsive QA, submission portal |
+| `live_01_patient_entry.png` | Live Research Assessment | Persistent research boundary, three actual-record presets, and eight readable input controls | Live demo opening |
+| `live_02_vqc_result.png` | Live Research Assessment | Experimental classification, uncalibrated score `0.509`, weak-model caution, and VQC architecture | Live demo result |
+| `live_03_factor_explanation.png` | Live Research Assessment | Ranked local perturbation analysis with haemoglobin as the strongest influence | Explainability evidence |
+| `live_04_similar_records.png` | Live Research Assessment | Five anonymised nearest UCI records, their stored classes, and same-input model decisions | Neighbour/comparison evidence |
+| `live_05_model_comparison.png` | Live Research Assessment | VQC/QSVC/RBF decisions, `2 OF 3 AGREE`, and uncertainty warning | Live demo comparison |
+| `live_06_review_checklist.png` | Live Research Assessment | Six generic review prompts and prominent clinical limitations | Responsible-use evidence |
+| `live_07_quantum_circuit.png` | Live Research Assessment | Plain-English variational-model explanation and the real frozen eight-qubit circuit | Quantum technical evidence |
+| `01_full_page_hero.png` | Single-page workstation | Q-CARE thesis, research boundary, workflow, and dual entry path | Final demo opening |
+| `02_live_patient_assessment.png` | Single-page workstation | Same-profile RBF SVM, QSVC, and VQC assessment | Live demo |
+| `03_model_agreement.png` | Single-page workstation | `2 OF 3 AGREE` and disagreement safety message | Responsible-use evidence |
+| `04_vqc_transparency.png` | Single-page workstation | Frozen VQC metrics, weak-model caution, and uncalibrated score | VQC evidence |
+| `05_similar_records.png` | Single-page workstation | Nearest benchmark records and clinician-review checklist | Explanation evidence |
+| `06_data_health_check.png` | Single-page workstation | Uploaded-dataset schema, missingness, coverage, and readiness | Data-health evidence |
+| `07_feature_reduction.png` | Single-page workstation | Wrapper RFE `24 → 8` and internal stability boundary | Feature evidence |
+| `08_three_model_comparison.png` | Single-page workstation | Protocol-labelled RBF SVM, QSVC, and VQC table | Benchmark evidence |
+| `09_quantum_circuits.png` | Single-page workstation | Actual frozen QSVC and VQC circuit disclosures | Quantum technical evidence |
+| `10_robustness.png` | Single-page workstation | Frozen robustness tabs with no invented VQC values | Robustness evidence |
+| `11_external_transportability.png` | Single-page workstation | External AUCs, intervals, and PARTIAL comparability | Transport evidence |
+| `12_feature_transportability.png` | Single-page workstation | UCI-to-BD-KDD feature-signal comparison | Root-cause evidence |
+| `13_final_evidence_report.png` | Single-page workstation | Final frozen status and clinical-use boundary | Demo close |
 
-Metric-by-metric verification for all 16 files is recorded in [`../screenshot_validation.md`](../screenshot_validation.md). The reproducible capture path is `scripts/capture_phase3d_screenshots.mjs`.
+Metric-by-metric verification is recorded in [`../screenshot_validation.md`](../screenshot_validation.md). Reproducible capture paths are `scripts/capture_phase3d_screenshots.mjs`, `scripts/capture_live_vqc_screenshots.mjs`, and `scripts/capture_single_page_screenshots.mjs`.

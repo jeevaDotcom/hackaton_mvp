@@ -17,7 +17,7 @@ streamlit run app.py
 
 ### Demo mode
 
-Open `http://localhost:8501`, then follow the fastest final route: **Overview → CKD Benchmark → Robustness & Shift → Quantum Evidence**. On those pages, use the rehearsed sections **Feature reduction → Classical vs quantum and runtime → External transportability → Final evidence summary**. The demo uses frozen artifacts, starts without expensive quantum retraining, and needs no IBM Quantum connection.
+Open `http://localhost:8501`, then follow the fastest final route: **Overview → CKD Benchmark → Robustness & Shift → Quantum Evidence**. The additional **Live Research Assessment** page demonstrates frozen VQC inference on an entered eight-feature profile. The demo uses frozen artifacts, starts without expensive quantum retraining, and needs no IBM Quantum connection.
 
 ### Key finding
 
@@ -53,7 +53,13 @@ Robustness, transfer, runtime, and circuit evidence
 Frozen artifacts → results repository → Streamlit platform
 ```
 
-The UI never retrains a quantum model. `src/results_repository.py` is the single display-data layer and reads only versioned experiment artifacts.
+The UI never retrains a quantum model. The five evidence pages read versioned experiment artifacts through `src/results_repository.py`; the separate live page reads its frozen model bundle through `src/live_vqc.py`.
+
+### Additional live VQC workflow
+
+The clinician-facing research page is deliberately separate from the evidence benchmark. It uses a frozen, genuinely trainable eight-qubit VQC: `ZFeatureMap(reps=1)` → `RealAmplitudes(reps=1, linear)` with 16 learned parameters from a 40-evaluation COBYLA run. Inputs are the existing frozen features `hemo`, `al`, `dm`, `sg`, `pcv`, `appet`, `htn`, and `sc`.
+
+The VQC is **WEAK — DISPLAY WITH CAUTION** on the existing 80-record holdout: sensitivity 0.640, specificity 0.567, F1 0.674, and ROC-AUC 0.676. The page labels its score as uncalibrated, shows local perturbation influences, anonymised similar benchmark records, same-input VQC/QSVC/RBF decisions, a generic clinician-review checklist, and explicit limitations. See [`research/live_vqc_results.md`](research/live_vqc_results.md) and [`research/live_vqc_decision.md`](research/live_vqc_decision.md).
 
 ## Datasets
 
@@ -153,7 +159,7 @@ pytest -q
 
 Tests cover data cleaning, split isolation, classical and quantum experiment integrity, external mappings, artifact-to-UI consistency, claim validation, circuit metadata, prohibited copy, and experiment replay.
 
-The post-redesign validation passed **63 tests**. See [`research/post_ui_validation.md`](research/post_ui_validation.md), [`submission/screenshot_validation.md`](submission/screenshot_validation.md), and [`submission/accessibility_check.md`](submission/accessibility_check.md).
+The final repository validation passed **85 tests**. See [`research/post_ui_validation.md`](research/post_ui_validation.md), [`submission/screenshot_validation.md`](submission/screenshot_validation.md), and [`submission/accessibility_check.md`](submission/accessibility_check.md).
 
 ## Reproducibility
 

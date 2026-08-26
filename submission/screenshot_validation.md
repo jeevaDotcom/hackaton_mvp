@@ -20,7 +20,15 @@ Validated on **25 August 2026** against the Phase 3D screenshot files and frozen
 | `mobile_overview.png` | External AUCs, intervals, and paired difference | Same sources as `01_overview.png` | `0.511`; `0.525`; `+0.015 [-0.029 to +0.058]` | Same | PASS |
 | `mobile_external_shift.png` | External intervals and statistical finding | Same sources as `06_external_shift.png` | `0.475-0.546`; `0.489-0.561`; paired `+0.015`; neither reliably better than random | Same | PASS |
 | `tablet_ckd_benchmark.png` | Original → primary feature count; records | Same sources as `02_ckd_benchmark.png` | `24 → 8`; `400` | `24 → 8`; `400` | PASS |
+| `live_01_patient_entry.png` | Feature count and profile source | `artifacts/live_vqc/metadata.json`; `presets.json` | Eight frozen features; actual complete UCI development records | Same | PASS |
+| `live_02_vqc_result.png` | Mixed-preset score, performance caution, architecture | Frozen weights/preprocessor; `metadata.json`; `metrics.json` | `0.509`; `WEAK — DISPLAY WITH CAUTION`; 8 qubits; ZFeatureMap/RealAmplitudes reps 1 | Same | PASS |
+| `live_03_factor_explanation.png` | Top local perturbation | Frozen inference plus training median/mode references | Haemoglobin; absolute score change `0.214`; strong influence | Same | PASS |
+| `live_04_similar_records.png` | Five neighbours and stored classes | `reference_records.csv`; frozen preprocessor | Five anonymised matches; all displayed stored classes non-CKD | Same | PASS |
+| `live_05_model_comparison.png` | Same-profile decisions and agreement | Frozen VQC/QSVC/RBF artifacts | VQC CKD-like; QSVC/RBF non-CKD-like; `2 OF 3 AGREE` | Same | PASS |
+| `live_06_review_checklist.png` | Review prompts and limitations | Live-page safety contract | Six generic prompts; clinical-review limitation visible | Same | PASS |
+| `live_07_quantum_circuit.png` | Model process and real circuit | `metadata.json`; `circuit.txt` | 8 values/qubits; ZFeatureMap; trainable RealAmplitudes; linear entanglement; COBYLA | Same | PASS |
+| `01_full_page_hero.png`–`13_final_evidence_report.png` | Integrated single-page patient, upload, benchmark, circuit, robustness, transport, and verdict evidence | Frozen Phase 1–3D artifacts; `artifacts/live_vqc/`; claim registry | Same metrics and interpretations as the validated source panels; no new scientific estimates | Same | PASS |
 
 ## Result
 
-**PASS — 16 of 16 screenshots validated; zero stale or illustrative scientific values.** The claim registry produced zero validation errors; final SHA-256 `fe3c78e294406358dddda332522bce35cb0483321c4d129069765c5225a90528`.
+**PASS — all 36 indexed screenshots validated; zero stale or illustrative scientific values.** The original claim registry remains unchanged and produced zero validation errors; final SHA-256 `fe3c78e294406358dddda332522bce35cb0483321c4d129069765c5225a90528`.

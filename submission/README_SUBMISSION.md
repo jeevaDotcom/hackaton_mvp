@@ -24,7 +24,7 @@ It is a research benchmark, not a clinical screening product.
 - Full, eight-, six-, and four-variable budget evaluation plus PCA controls.
 - Missingness, perturbation, training-size, finite-shot, and simulated-noise tests.
 - BD-KDD cross-cohort transportability audit and cross-disease methodology validation.
-- Five-page Streamlit evidence dashboard with offline replay and report download.
+- Single-page Streamlit clinical research workstation integrating the five frozen evidence areas, live VQC assessment, CSV data-health checks, and report download.
 - Frozen artifact manifest, claim registry, responsible-use controls, and automated tests.
 
 ## 4. Architecture
@@ -112,6 +112,8 @@ streamlit run app.py
 
 Expected URL: `http://localhost:8501` when the default port is free. The temporary Phase 3D validation instance used `http://localhost:8520`. Demo mode uses precomputed artifacts and requires no IBM Quantum connection.
 
+For the live segment, choose the borderline/mixed profile and click **ANALYSE PROFILE**. Present the `0.509` uncalibrated research-model score, the strong haemoglobin perturbation, five similar benchmark records, and the `2 OF 3 AGREE` VQC/QSVC/RBF comparison. State the visible **WEAK — DISPLAY WITH CAUTION** verdict.
+
 ## 15. Demo sequence
 
 1. **Overview** — open on paired internal `1.000/0.999` → BD-KDD `0.511/0.525`, with both external intervals spanning chance.
@@ -140,7 +142,7 @@ Do not alter frozen metrics or add patient-screening claims for presentation.
 
 ## 18. Final visual evidence
 
-Sixteen post-redesign screenshots are indexed in `screenshots/README.md`: thirteen desktop captures, two mobile-width captures, and one tablet capture. Every screenshot containing a number is cross-checked in `screenshot_validation.md`; the result is PASS with zero stale values.
+Thirty-six screenshots are indexed in `screenshots/README.md`: the original 16 responsive evidence captures, seven live-VQC workflow captures, and 13 final single-page workstation captures. Every displayed scientific value remains traceable to frozen artifacts.
 
 ## 19. References
 

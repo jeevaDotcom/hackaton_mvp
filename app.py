@@ -9,6 +9,7 @@ import pandas as pd
 import streamlit as st
 
 from src.results_repository import DATASETS, FEATURE_NAMES, ResultsRepository
+from src.live_vqc_page import live_assessment_page
 from src.ui_components import (
     chart_caption,
     comparison_metric,
@@ -27,6 +28,7 @@ from src.ui_components import (
     verdict_badge,
 )
 from src.ui_theme import CHART_CLASSICAL, CHART_QUANTUM, TEXT_PRIMARY, TEXT_SECONDARY, apply_theme
+from src.workstation_page import workstation_page
 
 
 ROOT = Path(__file__).resolve().parent
@@ -34,7 +36,7 @@ st.set_page_config(
     page_title="Q-CARE | Evidence-First QML Benchmarking",
     page_icon="◌",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 apply_theme()
 
@@ -532,14 +534,14 @@ def footer() -> None:
     )
 
 
+def live_page() -> None:
+    live_assessment_page(ROOT)
+
+
 with st.sidebar:
-    st.markdown('<div class="sidebar-brand"><strong>Q-CARE</strong><span>Evidence-First Hybrid Quantum Healthcare Benchmarking</span></div>', unsafe_allow_html=True)
-    page = st.radio(
-        "Workspace",
-        ["Overview", "CKD Benchmark", "Robustness & Shift", "Cross-Disease", "Quantum Evidence"],
-        label_visibility="collapsed",
-    )
-    st.markdown('<div class="sidebar-meta"><b>Demo mode</b><span>Precomputed · deterministic · offline</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="sidebar-brand"><strong>Q-CARE</strong><span>Single-page clinical research workstation</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="sidebar-workflow"><b>WORKFLOW</b><span>Input</span><span>Data health</span><span>Live assessment</span><span>Explanation</span><span>Benchmark</span><span>Robustness</span><span>Transportability</span><span>Evidence verdict</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="sidebar-meta"><b>Execution</b><span>Frozen artifacts · deterministic · offline</span></div>', unsafe_allow_html=True)
     st.download_button(
         "Download Evidence Summary",
         data=repo.evidence_report_markdown(),
@@ -549,12 +551,5 @@ with st.sidebar:
     )
 
 
-PAGES = {
-    "Overview": overview_page,
-    "CKD Benchmark": ckd_page,
-    "Robustness & Shift": robustness_page,
-    "Cross-Disease": cross_disease_page,
-    "Quantum Evidence": quantum_page,
-}
-PAGES[page]()
+workstation_page(ROOT, repo)
 footer()

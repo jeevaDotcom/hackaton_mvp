@@ -1,0 +1,44 @@
+{
+  "ckd_like": {
+    "label": "Example A \u2014 UCI CKD-like profile",
+    "profile": {
+      "al": 2.0,
+      "appet": "good",
+      "dm": "no",
+      "hemo": 11.1,
+      "htn": "yes",
+      "pcv": 33.0,
+      "sc": 2.8,
+      "sg": 1.015
+    },
+    "source": "Actual complete UCI development record nearest the CKD-class centroid"
+  },
+  "mixed": {
+    "label": "Example C \u2014 Borderline/mixed profile",
+    "profile": {
+      "al": 0.0,
+      "appet": "good",
+      "dm": "no",
+      "hemo": 14.6,
+      "htn": "no",
+      "pcv": 44.0,
+      "sc": 1.0,
+      "sg": 1.02
+    },
+    "source": "Actual complete UCI development record with model disagreement and VQC score nearest the decision threshold"
+  },
+  "non_ckd_like": {
+    "label": "Example B \u2014 UCI non-CKD-like profile",
+    "profile": {
+      "al": 0.0,
+      "appet": "good",
+      "dm": "no",
+      "hemo": 15.0,
+      "htn": "no",
+      "pcv": 46.0,
+      "sc": 0.5,
+      "sg": 1.025
+    },
+    "source": "Actual complete UCI development record nearest the non-CKD-class centroid"
+  }
+}

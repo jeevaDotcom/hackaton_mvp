@@ -1,0 +1,44 @@
+{
+  "evaluation_note": "All metrics use the existing frozen 80-row UCI holdout; VQC scores are uncalibrated circuit measurement weights.",
+  "performance_decision": "WEAK \u2014 DISPLAY WITH CAUTION",
+  "qsvc_existing_comparator": {
+    "accuracy": 1.0,
+    "f1": 1.0,
+    "fn": 0,
+    "fp": 0,
+    "pr_auc": 1.0,
+    "precision": 1.0,
+    "roc_auc": 1.0,
+    "sensitivity": 1.0,
+    "specificity": 1.0,
+    "tn": 30,
+    "tp": 50
+  },
+  "rbf_svm_existing_comparator": {
+    "accuracy": 0.9875,
+    "f1": 0.98989898989899,
+    "fn": 1,
+    "fp": 0,
+    "pr_auc": 1.0,
+    "precision": 1.0,
+    "roc_auc": 1.0,
+    "sensitivity": 0.98,
+    "specificity": 1.0,
+    "tn": 30,
+    "tp": 49
+  },
+  "training_runtime_seconds": 34.57021299999906,
+  "vqc": {
+    "accuracy": 0.6125,
+    "f1": 0.6736842105263158,
+    "fn": 18,
+    "fp": 13,
+    "pr_auc": 0.7890547918284305,
+    "precision": 0.7111111111111111,
+    "roc_auc": 0.6759999999999999,
+    "sensitivity": 0.64,
+    "specificity": 0.5666666666666667,
+    "tn": 17,
+    "tp": 32
+  }
+}
