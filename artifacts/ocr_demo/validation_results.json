@@ -1,0 +1,41 @@
+{
+  "samples": 6,
+  "expected_fields": 21,
+  "correctly_extracted": 21,
+  "unit_checks": 12,
+  "unit_matches": 12,
+  "false_extraction_count": 0,
+  "details": [
+    {
+      "sample": "core_names",
+      "correct": 4,
+      "expected": 4
+    },
+    {
+      "sample": "us_aliases",
+      "correct": 4,
+      "expected": 4
+    },
+    {
+      "sample": "safe_units",
+      "correct": 3,
+      "expected": 3
+    },
+    {
+      "sample": "history",
+      "correct": 3,
+      "expected": 3
+    },
+    {
+      "sample": "urine_albumin",
+      "correct": 2,
+      "expected": 2
+    },
+    {
+      "sample": "multipage",
+      "correct": 5,
+      "expected": 5
+    }
+  ],
+  "reporting_boundary": "Small fictional demo set; this is not a clinical OCR accuracy estimate."
+}

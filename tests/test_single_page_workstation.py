@@ -51,6 +51,42 @@ def test_patient_entry_executes_frozen_three_model_assessment() -> None:
     assert any("0.509" in item.value for item in app.markdown)
 
 
+def test_judge_hero_grouped_inputs_and_model_mode_render() -> None:
+    source = (ROOT / "src/workstation_page.py").read_text()
+    required = [
+        "Hybrid Quantum-Classical Healthcare Research Platform",
+        "Compare classical and quantum models on the same biomedical inputs",
+        "Blood markers",
+        "Urine markers",
+        "Clinical factors",
+        '"Compare All", "Single Model"',
+        '"INPUT", "Profile, report or CSV"',
+        '"TRUST", "Evidence boundary"',
+    ]
+    assert all(copy in source for copy in required)
+    app = AppTest.from_file(str(ROOT / "app.py")).run(timeout=30)
+    assert len(app.exception) == 0
+    modes = [control for control in app.segmented_control if control.label == "MODEL MODE"]
+    assert len(modes) == 1
+    assert modes[0].value == "Compare All"
+
+
+def test_single_model_mode_runs_selected_frozen_model() -> None:
+    app = AppTest.from_file(str(ROOT / "app.py")).run(timeout=30)
+    mode = [control for control in app.segmented_control if control.label == "MODEL MODE"][0]
+    mode.set_value("Single Model").run(timeout=30)
+    selected = [control for control in app.selectbox if control.label == "Frozen model"][0]
+    selected.set_value("QSVC").run(timeout=30)
+    [button for button in app.button if button.label == "ANALYSE PROFILE"][0].click().run(timeout=30)
+    assert len(app.exception) == 0
+    consensus = [item.value for item in app.markdown if item.value.startswith('<div class="consensus-table">')]
+    assert len(consensus) == 1
+    assert "QSVC" in consensus[0]
+    assert "RBF SVM" not in consensus[0]
+    assert ">VQC<" not in consensus[0]
+    assert any("SINGLE MODEL" in item.value for item in app.markdown)
+
+
 def test_vqc_score_status_and_no_performance_inflation(service: LiveVQCService) -> None:
     score = service.vqc_score(service.presets["mixed"]["profile"])
     metrics = service.metrics
@@ -104,6 +140,33 @@ def test_feature_transportability_values_are_artifact_backed(repo: ResultsReposi
     bd = frame[frame.Dataset == "BD-KDD"]
     assert len(bd) == 8
     assert bd["Signed AUC"].between(0.470, 0.519).all()
+
+
+def test_feature_efficiency_chart_values_are_frozen_and_matched(repo: ResultsRepository) -> None:
+    frame = repo.feature_efficiency_table()
+    assert set(frame["Representation"]) == {"24 features", "8 features"}
+    assert set(frame["Metric"]) == {"Sensitivity", "Specificity", "F1", "ROC-AUC"}
+    pivot = frame.pivot(index="Metric", columns="Representation", values="Value")
+    assert pivot.loc["Sensitivity", "24 features"] == pytest.approx(0.985)
+    assert pivot.loc["Sensitivity", "8 features"] == pytest.approx(0.995)
+    assert pivot.loc["Specificity", "24 features"] == pytest.approx(1.0)
+    assert pivot.loc["Specificity", "8 features"] == pytest.approx(0.9958333333333333)
+    assert pivot.loc["F1", "24 features"] == pytest.approx(0.9923401493021746)
+    assert pivot.loc["F1", "8 features"] == pytest.approx(0.996201329534663)
+    assert pivot.loc["ROC-AUC", "24 features"] == pytest.approx(1.0)
+    assert pivot.loc["ROC-AUC", "8 features"] == pytest.approx(1.0)
+
+
+def test_judge_visuals_use_only_existing_evidence_artifacts(repo: ResultsRepository, service: LiveVQCService) -> None:
+    source = (ROOT / "src/workstation_page.py").read_text()
+    assert "artifacts/quantum/kernels/clinical_8_z_reps1.npz" in source
+    assert (ROOT / "artifacts/quantum/kernels/clinical_8_z_reps1.npz").exists()
+    assert (ROOT / "artifacts/live_vqc/training_trace.csv").exists()
+    assert repo.runtime_ratio(8) == pytest.approx(464.11648514474587)
+    assert service.metrics["training_runtime_seconds"] == pytest.approx(34.57021299999906)
+    assert service.metadata["optimizer_evaluations"] == 40
+    assert "VQC holdout metrics and repeated-CV estimates are not interchangeable" in source
+    assert "No quantum speed advantage" in source
 
 
 def test_claim_registry_consistency_is_preserved(repo: ResultsRepository) -> None:

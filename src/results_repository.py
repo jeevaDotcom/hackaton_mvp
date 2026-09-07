@@ -79,6 +79,7 @@ class ResultsRepository:
         self.manifest = self._json("artifacts/final_model_manifest.json")
         self.claim_registry = self._json("artifacts/claim_registry.json")
         self.phase1 = self._json("artifacts/development_decision.json")
+        self.development = self._csv("artifacts/development_cv_results.csv")
         self.phase2_locked = self._json("artifacts/phase2_locked_test_evaluation.json")
         self.reference = self._csv("artifacts/phase3/reference_cv_summary.csv")
         self.quantum = self._csv("artifacts/quantum_cv_summary.csv")
@@ -221,6 +222,34 @@ class ResultsRepository:
             "mean_rank": "Mean rank",
             "jaccard_mean_8": "Jaccard stability",
         })[["Variable", "Selection frequency", "Mean rank", "Jaccard stability"]].sort_values("Mean rank")
+
+    def feature_efficiency_table(self) -> pd.DataFrame:
+        """Return the matched RBF-SVM 24-versus-8 development-CV comparison."""
+
+        full = self.development[
+            (self.development.representation == "full")
+            & (self.development.budget == 24)
+            & (self.development.model == "svm_rbf")
+        ]
+        reduced = self.development[
+            (self.development.representation == "selected")
+            & (self.development.selector == "wrapper_rfe")
+            & (self.development.budget == 8)
+            & (self.development.model == "svm_rbf")
+        ]
+        if len(full) != 10 or len(reduced) != 10:
+            raise ValueError("Frozen 24-to-8 RBF-SVM comparison is incomplete")
+        rows: list[dict[str, Any]] = []
+        for label, frame in (("24 features", full), ("8 features", reduced)):
+            means = frame[["sensitivity", "specificity", "f1", "roc_auc"]].mean()
+            for metric, column in (
+                ("Sensitivity", "sensitivity"),
+                ("Specificity", "specificity"),
+                ("F1", "f1"),
+                ("ROC-AUC", "roc_auc"),
+            ):
+                rows.append({"Representation": label, "Metric": metric, "Value": float(means[column])})
+        return pd.DataFrame(rows)
 
     def phase2_budget_table(self, representation: str = "clinical") -> pd.DataFrame:
         value = self.quantum[

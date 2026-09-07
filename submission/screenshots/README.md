@@ -1,5 +1,38 @@
 # Final Q-CARE Screenshot Index
 
+## Report Scanner OCR MVP
+
+These seven captures were regenerated on 8 September 2026 from the live, single-page workstation using the bundled isolated test browser. They document the complete human-confirmed report-to-model path.
+
+| Filename | OCR step | What it demonstrates |
+|---|---|---|
+| `ocr_01_upload.png` | Upload | Local PDF/image intake, offline sample action, extraction workflow, and models visibly awaiting confirmation |
+| `ocr_02_extraction.png` | Extract | Embedded-text PDF path, four safely detected values, real confidence labels, and review statuses |
+| `ocr_03_source_evidence.png` | Trace | Serum-creatinine source line, page provenance, extraction method, value, and unit |
+| `ocr_04_researcher_review.png` | Verify | Editable extracted values plus clearly separated missing/unresolved inputs |
+| `ocr_05_manual_completion.png` | Complete | Dataset-compatible albumin and context fields awaiting explicit researcher input |
+| `ocr_06_confirmed_profile.png` | Confirm | Researcher-confirmed values, 8/8 completeness, unit review, development-range check, and READY status |
+| `ocr_07_model_results.png` | Run | Confirmed profile evaluated through frozen RBF-SVM, analytical QSVC, and NumPy VQC with consensus |
+
+Capture script: `scripts/capture_ocr_mvp.mjs`.
+
+## Q-CARE 2.0 judge experience
+
+These six captures were regenerated on 8 September 2026 from the live single-page workstation at a 1280 × 1200 viewport. They form the concise judge walkthrough and preserve the frozen scientific evidence.
+
+| Filename | Judge moment | What it demonstrates |
+|---|---|---|
+| `01_hero_input.png` | Understand | Clear research thesis, five-step workflow, visible entry modes, readable presets, and grouped patient inputs |
+| `02_model_consensus.png` | Predict | Same-input RBF-SVM, QSVC, and VQC decisions with explicit model agreement and disagreement guidance |
+| `03_performance_runtime.png` | Compare | Protocol-labelled performance plus a separate logarithmic runtime-cost comparison; no speed-advantage claim |
+| `04_feature_influence.png` | Explain | Patient-specific perturbation factors, nearest development records, and non-causal interpretation boundary |
+| `05_quantum_proof.png` | Verify | Stored QSVC fidelity matrix, frozen VQC optimisation trace, and both real eight-qubit circuit disclosures |
+| `06_evidence_report.png` | Trust | Final evidence statuses, external-transportability boundary, and clinical-use limitation |
+
+Capture script: `scripts/capture_judge_experience.mjs`.
+
+## Phase 3D and final-integration archive
+
 Phase 3D evidence files were regenerated on 25 August 2026 from the final redesigned UI. Desktop captures use a consistent 956 × 1000 viewport; responsive captures use 480 × 900 mobile-width and 834 × 1083 tablet canvases.
 
 | Filename | Page | What it demonstrates | Recommended use |
@@ -41,4 +74,4 @@ Phase 3D evidence files were regenerated on 25 August 2026 from the final redesi
 | `12_single_page_feature_transportability.png` | Single-page workstation | UCI-to-BD-KDD feature-signal comparison | Root-cause evidence |
 | `13_final_evidence_report.png` | Single-page workstation | Final frozen status and clinical-use boundary | Demo close |
 
-Metric-by-metric verification is recorded in [`../screenshot_validation.md`](../screenshot_validation.md). Reproducible capture paths are `scripts/capture_phase3d_screenshots.mjs`, `scripts/capture_live_vqc_screenshots.mjs`, and `scripts/capture_single_page_screenshots.mjs`.
+Metric-by-metric verification is recorded in [`../screenshot_validation.md`](../screenshot_validation.md). Reproducible capture paths are `scripts/capture_judge_experience.mjs`, `scripts/capture_phase3d_screenshots.mjs`, `scripts/capture_live_vqc_screenshots.mjs`, and `scripts/capture_single_page_screenshots.mjs`.

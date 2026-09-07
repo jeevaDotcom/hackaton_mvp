@@ -1,0 +1,72 @@
+[
+  {
+    "id": "core_names",
+    "pages": [
+      "Haemoglobin: 10.4 g/dL\nPCV: 31 %\nSerum Creatinine: 2.4 mg/dL\nSpecific Gravity: 1.010"
+    ],
+    "expected": {
+      "hemo": 10.4,
+      "pcv": 31.0,
+      "sc": 2.4,
+      "sg": 1.01
+    }
+  },
+  {
+    "id": "us_aliases",
+    "pages": [
+      "Hemoglobin = 13.2 g/dL\nHematocrit = 40 %\nCREA = 1.1 mg/dL\nSp Gr = 1.020"
+    ],
+    "expected": {
+      "hemo": 13.2,
+      "pcv": 40.0,
+      "sc": 1.1,
+      "sg": 1.02
+    }
+  },
+  {
+    "id": "safe_units",
+    "pages": [
+      "HGB 126 g/L\nHCT 38 %\nCreatinine 176.8 umol/L"
+    ],
+    "expected": {
+      "hemo": 12.6,
+      "pcv": 38.0,
+      "sc": 2.0
+    }
+  },
+  {
+    "id": "history",
+    "pages": [
+      "Known diabetic: Yes\nHTN: No\nAppetite: Poor"
+    ],
+    "expected": {
+      "dm": "yes",
+      "htn": "no",
+      "appet": "poor"
+    }
+  },
+  {
+    "id": "urine_albumin",
+    "pages": [
+      "Urine Albumin: 2 +\nUrine Specific Gravity: 1.015"
+    ],
+    "expected": {
+      "al": 2.0,
+      "sg": 1.015
+    }
+  },
+  {
+    "id": "multipage",
+    "pages": [
+      "Hb: 11.8 g/dL\nPCV: 35 %",
+      "S. Creatinine: 1.8 mg/dL\nDM: No\nKnown hypertensive"
+    ],
+    "expected": {
+      "hemo": 11.8,
+      "pcv": 35.0,
+      "sc": 1.8,
+      "dm": "no",
+      "htn": "yes"
+    }
+  }
+]

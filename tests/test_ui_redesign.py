@@ -38,6 +38,16 @@ def test_theme_includes_accessibility_and_reduced_motion_guards() -> None:
     assert ".verdict::before" in source
 
 
+def test_current_streamlit_buttons_have_explicit_contrast_states() -> None:
+    source = (ROOT / "src/ui_theme.py").read_text()
+    assert 'button[data-testid="stBaseButton-secondary"]' in source
+    assert 'button[data-variant="segmented_control"]' in source
+    assert '[aria-checked="true"]' in source
+    assert ":is(p, span) { color: inherit !important; }" in source
+    assert "background: var(--surface-raised) !important" in source
+    assert "color: white !important" in source
+
+
 def test_responsive_layout_has_tablet_and_mobile_breakpoints() -> None:
     source = (ROOT / "src/ui_theme.py").read_text()
     assert "@media (max-width: 960px)" in source

@@ -59,24 +59,58 @@ async function openDisclosure(label, expectedHeading) {
 
 await page.goto(baseUrl, { waitUntil: "domcontentloaded", timeout: 30000 });
 await page.locator("div.workstation-brand").waitFor({ state: "visible", timeout: 30000 });
-await heading("Hybrid Quantum Clinical Research Platform");
+await heading("Hybrid Quantum-Classical Healthcare Research Platform");
 await requireVisible(page.getByText("Q-CARE", { exact: true }), "page loads");
 await page.getByRole("button", { name: "ANALYSE PROFILE", exact: true }).waitFor({ state: "visible", timeout: 30000 });
 await requireVisible(page.getByRole("button", { name: "ANALYSE PROFILE", exact: true }), "patient inputs render");
+await requireVisible(page.getByRole("radio", { name: "Compare All", exact: true }), "Compare All mode renders");
 
 const analyse = await one(page.getByRole("button", { name: "ANALYSE PROFILE", exact: true }), "Analyse button");
 await analyse.click();
 await page.getByText("VQC research model score", { exact: true }).waitFor({ state: "visible", timeout: 30000 });
-await heading("Live model assessment");
+await heading("Model consensus");
 await requirePresent(page.getByText("RBF SVM", { exact: true }), "RBF prediction works");
 await requirePresent(page.getByText("QSVC", { exact: true }), "QSVC prediction works");
 await requireVisible(page.getByText("VQC research model score", { exact: true }), "VQC prediction works");
 await requireVisible(page.getByText("2 OF 3 AGREE", { exact: true }).or(page.getByText("3 OF 3 AGREE", { exact: true })), "agreement works");
 await requireVisible(page.getByText("WEAK — DISPLAY WITH CAUTION", { exact: true }), "VQC caution retained");
-await heading("Factors influencing this model output");
+await heading("Classical vs quantum performance");
+checks["performance chart works"] = true;
+await heading("Computational cost");
+checks["runtime chart works"] = true;
+await heading("What influenced this model output?");
 checks["perturbation factors render"] = true;
 await heading("Similar historical benchmark records");
 checks["similar records render"] = true;
+await heading("Can 8 features retain most of the 24-feature performance?");
+checks["24 to 8 proof works"] = true;
+await heading("How the models work");
+checks["model explainers render"] = true;
+
+const singleMode = await one(page.getByRole("radio", { name: "Single Model", exact: true }), "Single Model mode");
+await singleMode.click();
+await page.getByText("Frozen model", { exact: true }).waitFor({ state: "visible", timeout: 10000 });
+const modelSelectLocator = page.getByLabel("Frozen model", { exact: true });
+await modelSelectLocator.waitFor({ state: "visible", timeout: 10000 });
+const modelSelect = await one(modelSelectLocator, "frozen model selector");
+await modelSelect.click();
+const qsvcOptionLocator = page.getByRole("option", { name: "QSVC", exact: true });
+await qsvcOptionLocator.waitFor({ state: "visible", timeout: 10000 });
+const qsvcOption = await one(qsvcOptionLocator, "QSVC option");
+await qsvcOption.click();
+const singleAnalyseLocator = page.getByRole("button", { name: "ANALYSE PROFILE", exact: true });
+await singleAnalyseLocator.waitFor({ state: "visible", timeout: 10000 });
+const singleAnalyse = await one(singleAnalyseLocator, "single-model Analyse button");
+await singleAnalyse.click();
+await page.getByText("SINGLE MODEL", { exact: true }).waitFor({ state: "visible", timeout: 30000 });
+const singleRows = await page.locator("div.consensus-row").count();
+if (singleRows !== 1) throw new Error(`Single Model mode rendered ${singleRows} consensus rows`);
+checks["Single Model works"] = true;
+
+const compareMode = await one(page.getByRole("radio", { name: "Compare All", exact: true }), "Compare All mode");
+await compareMode.click();
+await page.getByText("2 OF 3 AGREE", { exact: true }).or(page.getByText("3 OF 3 AGREE", { exact: true })).waitFor({ state: "visible", timeout: 30000 });
+checks["Compare All works"] = true;
 
 const uploadMode = await one(page.getByText("Upload biomedical dataset", { exact: true }), "upload entry path");
 await uploadMode.click();
@@ -100,22 +134,26 @@ const healthButton = await one(page.getByRole("button", { name: "RUN DATA HEALTH
 await healthButton.click();
 fs.unlinkSync(temporaryCsv);
 await openDisclosure("Data health check", "Data health check");
+await page.getByText("READY", { exact: true }).waitFor({ state: "visible", timeout: 30000 });
 await requireVisible(page.getByText("READY", { exact: true }), "Data Health Check works");
+await page.getByText("8/8", { exact: true }).waitFor({ state: "visible", timeout: 10000 });
 await requireVisible(page.getByText("8/8", { exact: true }), "required feature coverage");
 
 await openDisclosure("Feature engineering", "Feature reduction");
 checks["feature reduction section renders"] = true;
 await openDisclosure("Classical / quantum benchmark", "Three-model comparison");
 checks["three-model benchmark renders"] = true;
-await openDisclosure("Actual quantum circuits", "QSVC circuit");
+await openDisclosure("Actual quantum circuits", "Quantum proof");
+await heading("Quantum similarity matrix");
 await heading("VQC circuit");
+await heading("VQC training trace");
 checks["both quantum circuit visuals render"] = true;
 await openDisclosure("Robustness", "Frozen robustness experiments");
 checks["robustness section renders"] = true;
 await openDisclosure("Dataset compatibility & transportability", "External transportability");
 await requireVisible(page.getByText("Target comparability was PARTIAL. External transport failure reflected both target/cohort differences and changed feature–target relationships; therefore the experiment demonstrates transportability risk but cannot isolate pure conditional shift.", { exact: true }), "Phase 3C wording retained");
 checks["external transportability section renders"] = true;
-await openDisclosure("Q-CARE model evidence report", "Q-CARE model evidence report");
+await heading("Q-CARE model evidence report");
 await requireVisible(page.getByText("RESEARCH EVIDENCE ONLY", { exact: true }), "final evidence report renders");
 
 const exceptions = await page.locator('[data-testid="stException"]').count();

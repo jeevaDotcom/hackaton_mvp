@@ -1,5 +1,38 @@
 # Screenshot Metric Validation
 
+## Report Scanner OCR MVP
+
+Validated on **8 September 2026** against the seven regenerated OCR screenshots, fictional demo sources, and frozen inference services.
+
+| Screenshot | Validation | Result |
+|---|---|---|
+| `ocr_01_upload.png` | PDF/image upload and offline sample are visible; model state is `AWAITING PROFILE` | PASS |
+| `ocr_02_extraction.png` | Digital PDF uses embedded-text extraction and reports `4 of 8 values detected` | PASS |
+| `ocr_03_source_evidence.png` | Creatinine `2.4 mg/dL`, Page 1, PyMuPDF method, source snippet, and HIGH confidence are visible | PASS |
+| `ocr_04_researcher_review.png` | Extracted values are editable and unresolved fields are isolated for completion | PASS |
+| `ocr_05_manual_completion.png` | Albumin, diabetes, hypertension, and appetite remain unselected before confirmation | PASS |
+| `ocr_06_confirmed_profile.png` | `8 / 8`, unit review `PASSED`, range check `PASSED`, model input `READY` | PASS |
+| `ocr_07_model_results.png` | RBF-SVM, QSVC, and VQC run only after confirmation; `3 OF 3 AGREE` for the fictional sample profile | PASS |
+
+**OCR screenshot result: PASS — exactly seven requested screenshots regenerated with zero Streamlit, page, or console errors in the successful capture.**
+
+## Q-CARE 2.0 judge experience
+
+Validated on **8 September 2026** against the six regenerated judge screenshots, the live interaction sweep, and the same frozen repository artifacts. No model was fitted, recalibrated, or deserialised through native Qiskit during capture.
+
+| Screenshot | Evidence checked | Expected and displayed result | Result |
+|---|---|---|---|
+| `01_hero_input.png` | Research boundary, modes, presets, input grouping | Research prototype; Compare All default; three actual-record presets; 8 inputs in blood/urine/clinical groups | PASS |
+| `02_model_consensus.png` | Same-input model decisions and agreement | RBF-SVM, QSVC, and VQC results; `2 OF 3 AGREE`; disagreement safety guidance | PASS |
+| `03_performance_runtime.png` | Frozen performance and runtime protocols | RBF/QSVC repeated-CV metrics; VQC holdout metrics clearly separated; QSVC about `464×`; no quantum speed advantage | PASS |
+| `04_feature_influence.png` | Local explanation and similar records | Frozen VQC perturbation values; non-causal boundary; five anonymised UCI development neighbours | PASS |
+| `05_quantum_proof.png` | Stored quantum artifacts | Stored `80 × 80` exact-statevector fidelity kernel; 40-evaluation/34.57 s VQC trace; actual QSVC and VQC circuits | PASS |
+| `06_evidence_report.png` | Frozen claim status | Internal SVM strong; QSVC competitiveness supported; VQC `WEAK — DISPLAY WITH CAUTION`; external validation and quantum advantage not demonstrated | PASS |
+
+**Judge-set result: PASS — exactly six screenshots regenerated with zero browser or Streamlit exceptions.**
+
+## Phase 3D and final-integration archive
+
 Validated on **25 August 2026** against the Phase 3D screenshot files and frozen repository artifacts. Values are compared at the same precision shown by the UI.
 
 | Screenshot | Displayed metric | Artifact source | Expected value | Actual value | Result |
@@ -31,4 +64,4 @@ Validated on **25 August 2026** against the Phase 3D screenshot files and frozen
 
 ## Result
 
-**PASS — all 36 indexed screenshots validated; zero stale or illustrative scientific values.** The original claim registry remains unchanged and produced zero validation errors; final SHA-256 `fe3c78e294406358dddda332522bce35cb0483321c4d129069765c5225a90528`.
+**PASS — all 49 indexed screenshots validated; zero stale scientific values.** The seven OCR screenshots use only clearly marked fictional sample-report inputs; all model metrics and scientific claims remain frozen. The original claim registry remains unchanged and produced zero validation errors; final SHA-256 `fe3c78e294406358dddda332522bce35cb0483321c4d129069765c5225a90528`.
