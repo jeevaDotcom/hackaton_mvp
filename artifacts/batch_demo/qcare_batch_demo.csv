@@ -1,0 +1,13 @@
+HGB,Albumin,Diabetes Mellitus,Urine Specific Gravity,HCT,Appetite,HTN,Creatinine
+11.1,2,no,1.015,33,good,yes,2.8
+15.0,0,no,1.025,46,good,no,0.5
+14.6,0,no,1.020,44,good,no,1.0
+10.2,3,yes,1.010,30,poor,yes,4.1
+13.5,1,n,1.020,41,good,no,1.2
+16.1,0,false,1.025,48,good,no,0.7
+9.8,4,true,1.005,28,poor,yes,
+12.4,2,no,1.015,37,unknown2,no,2.0
+14.1,1,no,1.020,43,good,n,0.9
+8.9,5,yes,1.010,25,poor,y,6.2
+15.2,0,no,1.025,47,good,no,0.6
+11.8,3,yes,1.015,35,poor,yes,3.4

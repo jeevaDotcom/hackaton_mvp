@@ -171,7 +171,7 @@ def test_scanner_module_has_no_model_execution_path() -> None:
 def test_streamlit_sample_requires_confirmation_before_model_execution() -> None:
     app = AppTest.from_file(str(ROOT / "app.py")).run(timeout=30)
     entry = [control for control in app.segmented_control if control.label == "Entry path"][0]
-    entry.set_value("Scan report").run(timeout=30)
+    entry.set_value("Scan Report").run(timeout=30)
     [button for button in app.button if button.label == "TRY SAMPLE REPORT"][0].click().run(timeout=60)
     assert len(app.exception) == 0
     assert "workstation_analysis" not in app.session_state

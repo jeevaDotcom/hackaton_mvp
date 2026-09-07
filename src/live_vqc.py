@@ -211,6 +211,46 @@ class LiveVQCService:
         predicted = int(self._qsvc_classes[int(decision[0] > 0.0)])
         return ModelDecision("QSVC", predicted, self.display_class(predicted))
 
+    def batch_model_outputs(self, profiles: list[Mapping[str, Any]]) -> list[dict[str, float | int]]:
+        """Evaluate valid profiles through the three frozen runtime-safe paths."""
+
+        if not profiles:
+            return []
+        raw = pd.DataFrame([self._profile_frame(profile).iloc[0].to_dict() for profile in profiles], columns=self.feature_order)
+
+        classical_matrix = np.asarray(
+            self.classical_bundle["preprocessor"].transform(raw[self.classical_bundle["features"]]), dtype=float
+        )
+        classical_model = self.classical_bundle["model"]
+        classical_scores = np.asarray(classical_model.decision_function(classical_matrix), dtype=float)
+        classical_predictions = np.asarray(classical_model.predict(classical_matrix), dtype=int)
+
+        qsvc_matrix = np.asarray(
+            self.qsvc_bundle["preprocessor"].transform(raw[self.qsvc_bundle["features"]]), dtype=float
+        )
+        qsvc_decisions = (
+            np.prod(np.cos(qsvc_matrix[:, None, :] - self._qsvc_support_vectors[None, :, :]) ** 2, axis=2)
+            @ self._qsvc_dual
+            + self._qsvc_intercept
+        )
+        qsvc_predictions = self._qsvc_classes[(qsvc_decisions > 0.0).astype(int)]
+
+        vqc_matrix = np.asarray(self.preprocessor.transform(raw[self.feature_order]), dtype=float)
+        vqc_scores = frozen_vqc_class_scores(self.weights, vqc_matrix)
+        vqc_predictions = (vqc_scores >= float(self.metadata["classification_threshold"])).astype(int)
+
+        return [
+            {
+                "rbf_svm_prediction": int(classical_predictions[index]),
+                "rbf_svm_score": float(classical_scores[index]),
+                "qsvc_prediction": int(qsvc_predictions[index]),
+                "qsvc_score": float(qsvc_decisions[index]),
+                "vqc_prediction": int(vqc_predictions[index]),
+                "vqc_score": float(vqc_scores[index]),
+            }
+            for index in range(len(profiles))
+        ]
+
     def model_comparison(self, profile: Mapping[str, Any]) -> dict[str, Any]:
         decisions = [
             self.vqc_decision(profile),

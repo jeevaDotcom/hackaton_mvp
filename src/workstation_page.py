@@ -12,10 +12,27 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
+from src.csv_batch import (
+    FEATURE_ORDER as BATCH_FEATURE_ORDER,
+    MAX_BATCH_ROWS,
+    batch_size_error,
+    build_batch_results,
+    export_results,
+    filter_results,
+    result_columns,
+    suggest_column_mapping,
+    summarize_results,
+    validate_mapping,
+)
 from src.data_health import DataHealthResult, analyse_data_health
 from src.live_vqc import READABLE_NAMES, UNITS, LiveVQCService, ModelDecision
 from src.live_vqc_page import load_live_service
 from src.results_repository import FEATURE_NAMES, ResultsRepository
+from src.research_report import (
+    ReportStateError,
+    create_batch_report,
+    create_single_patient_report,
+)
 from src.report_scanner import (
     FEATURE_NAMES as SCANNER_FEATURE_NAMES,
     FEATURE_ORDER as SCANNER_FEATURE_ORDER,
@@ -136,11 +153,12 @@ def _patient_entry(service: LiveVQCService) -> None:
             st.session_state["workstation_analysis"] = _run_worker_safe_analysis(service, profile)
 
 
-def _store_ocr_extraction(result: ExtractionResult, fingerprint: str) -> None:
+def _store_ocr_extraction(result: ExtractionResult, fingerprint: str, filename: str) -> None:
     """Reset confirmation whenever the source document changes."""
 
     st.session_state["ocr_extraction"] = result
     st.session_state["ocr_source_fingerprint"] = fingerprint
+    st.session_state["ocr_source_name"] = filename
     st.session_state.pop("ocr_confirmed_profile", None)
     st.session_state.pop("ocr_profile_health", None)
     st.session_state.pop("workstation_analysis", None)
@@ -167,7 +185,7 @@ def _extract_source(data: bytes, filename: str) -> None:
     except ReportValidationError as error:
         st.error(str(error))
         return
-    _store_ocr_extraction(result, fingerprint)
+    _store_ocr_extraction(result, fingerprint, filename)
 
 
 def _render_source_evidence(result: ExtractionResult) -> None:
@@ -260,6 +278,10 @@ def _ocr_review_form(result: ExtractionResult) -> None:
         else:
             _set_profile(profile)
             st.session_state["ocr_confirmed_profile"] = profile
+            st.session_state["ocr_profile_modified"] = any(
+                str(values.get(feature)) != str(defaults.get(feature))
+                for feature in SCANNER_FEATURE_ORDER
+            )
             st.success("Feature profile confirmed. Frozen model evaluation is now available as a separate action.")
 
 
@@ -288,6 +310,7 @@ def _ocr_profile_health(service: LiveVQCService) -> None:
 
 def _report_scanner_entry(root: Path, service: LiveVQCService) -> None:
     section_header("Scan report", "AI-assisted report extraction identifies only Q-CARE inputs; a researcher must verify every value before model evaluation.")
+    st.caption("OCR extracts and verifies inputs for the frozen binary experiment only. It does not produce or infer CKD stage.")
     st.markdown(
         '<div class="scanner-flow"><span>REPORT UPLOAD</span><i>↓</i><span>FIELD MAPPING</span><i>↓</i><span>RESEARCHER REVIEW</span><i>↓</i><span>CONFIRM</span><i>↓</i><span>RUN Q-CARE</span></div>',
         unsafe_allow_html=True,
@@ -334,27 +357,254 @@ def _report_scanner_entry(root: Path, service: LiveVQCService) -> None:
     _ocr_profile_health(service)
 
 
-def _dataset_entry(service: LiveVQCService) -> None:
-    section_header("Dataset upload", "Upload a CSV, select its target, and run schema and data-health checks. No model is trained or run automatically.")
-    uploaded = st.file_uploader("Upload biomedical CSV", type=["csv"], key="workstation_dataset_upload")
-    if uploaded is None:
-        research_note("Awaiting CSV", "Q-CARE will detect columns only after a local CSV is supplied. Uploaded data is processed in this running application session.")
+def _batch_entry(root: Path, service: LiveVQCService) -> None:
+    section_header("CSV batch", "Run the three frozen research models row by row after column review and independent validation.")
+    st.caption(f"Synthetic/demo data is supported for demonstration. Batch limit: {MAX_BATCH_ROWS:,} rows.")
+    uploaded = st.file_uploader("Upload CSV batch", type=["csv"], key="batch_csv_upload")
+    sample_column, upload_column = st.columns([1, 1], gap="small")
+    with sample_column:
+        load_sample = st.button("TRY SAMPLE BATCH", key="batch_sample", width="stretch")
+    source_bytes: bytes | None = None
+    source_name = ""
+    if load_sample:
+        sample_path = root / "artifacts/batch_demo/qcare_batch_demo.csv"
+        if sample_path.exists():
+            source_bytes = sample_path.read_bytes()
+            source_name = sample_path.name
+        else:
+            st.error("The bundled sample batch is missing.")
+    elif uploaded is not None:
+        source_bytes = uploaded.getvalue()
+        source_name = uploaded.name
+
+    if source_bytes is not None:
+        fingerprint = hashlib.sha256(source_bytes).hexdigest()
+        if st.session_state.get("batch_source_fingerprint") != fingerprint:
+            try:
+                frame = pd.read_csv(pd.io.common.BytesIO(source_bytes))
+            except Exception as error:  # pragma: no cover - Streamlit-facing parse boundary
+                st.error(f"CSV could not be parsed: {error}")
+                return
+            if frame.empty or not len(frame.columns):
+                st.error("The CSV contains no usable rows or columns.")
+                return
+            size_error = batch_size_error(len(frame))
+            if size_error:
+                st.error(size_error)
+                return
+            suggestions = suggest_column_mapping(list(frame.columns))
+            st.session_state["batch_source_fingerprint"] = fingerprint
+            st.session_state["batch_source_name"] = source_name
+            st.session_state["batch_frame"] = frame
+            st.session_state.pop("batch_results", None)
+            st.session_state.pop("batch_mapping_errors", None)
+            for feature, suggestion in suggestions.items():
+                st.session_state.pop(f"batch_mapping_widget_{feature}", None)
+                st.session_state[f"batch_mapping_{feature}"] = suggestion.suggested_column
+
+    frame = st.session_state.get("batch_frame")
+    if not isinstance(frame, pd.DataFrame):
+        research_note("Awaiting CSV batch", "Upload a CSV or use TRY SAMPLE BATCH. Q-CARE will not train or alter a model.")
         return
-    try:
-        frame = pd.read_csv(uploaded)
-    except Exception as error:  # pragma: no cover - Streamlit-facing parse boundary
-        st.error(f"CSV could not be parsed: {error}")
+
+    columns = [str(column) for column in frame.columns]
+    suggestions = suggest_column_mapping(columns)
+    st.caption(f"Source: {st.session_state.get('batch_source_name', 'CSV')} · {len(frame):,} rows · {len(columns):,} columns")
+    section_header("Step 2 · Review column mapping", "Automatic suggestions are deterministic. Serum albumin is never mapped automatically to the dataset albumin grade.")
+    mapping: dict[str, str | None] = {}
+    with st.form("batch_mapping_form"):
+        mapping_columns = st.columns(2, gap="large")
+        for index, feature in enumerate(BATCH_FEATURE_ORDER):
+            with mapping_columns[index % 2]:
+                options = ["(not mapped)", *columns]
+                current = st.session_state.get(f"batch_mapping_{feature}")
+                selected_index = options.index(current) if current in options else 0
+                selected = st.selectbox(
+                    f"{suggestions[feature].display_name} ({feature})",
+                    options,
+                    index=selected_index,
+                    key=f"batch_mapping_widget_{feature}",
+                )
+                mapping[feature] = None if selected == "(not mapped)" else selected
+        mapping_submitted = st.form_submit_button("VALIDATE COLUMN MAPPING", type="primary", width="stretch")
+
+    mapping_errors = validate_mapping(mapping, columns)
+    if mapping_submitted:
+        for feature, selected in mapping.items():
+            st.session_state[f"batch_mapping_{feature}"] = selected
+        st.session_state["batch_mapping_errors"] = mapping_errors
+        st.session_state.pop("batch_results", None)
+    elif st.session_state.get("batch_mapping_errors"):
+        mapping_errors = st.session_state["batch_mapping_errors"]
+
+    status_rows = []
+    for feature in BATCH_FEATURE_ORDER:
+        selected = mapping.get(feature)
+        suggestion = suggestions[feature]
+        status = "MAPPED" if selected else suggestion.status
+        status_rows.append({
+            "Q-CARE Feature": suggestion.display_name,
+            "Suggested CSV Column": suggestion.suggested_column or "—",
+            "Selected CSV Column": selected or "—",
+            "Status": status,
+        })
+    st.dataframe(pd.DataFrame(status_rows), hide_index=True, width="stretch")
+    if mapping_errors:
+        for error in mapping_errors:
+            st.warning(error)
         return
-    if frame.empty or not len(frame.columns):
-        st.error("The uploaded CSV contains no usable rows or columns.")
+
+    if st.button("RUN FROZEN BATCH MODELS", type="primary", key="run_batch_models", width="stretch"):
+        with st.spinner("Validating rows and running the three frozen model paths…"):
+            st.session_state["batch_results"] = build_batch_results(frame, mapping, service)
+
+    results = st.session_state.get("batch_results")
+    if not isinstance(results, pd.DataFrame):
+        research_note("Mapping ready", "Mapping is valid. Run the frozen batch models when the source columns and units have been reviewed.")
         return
-    st.caption(f"Detected {len(frame):,} rows and {len(frame.columns):,} columns.")
-    target = st.selectbox("Select target column", list(frame.columns), key="workstation_target")
-    if st.button("RUN DATA HEALTH CHECK", type="primary", key="run_data_health"):
+
+    _render_batch_results(results)
+
+
+def _render_batch_results(results: pd.DataFrame) -> None:
+    summary = summarize_results(results)
+    section_header("Batch summary", "Counts describe model outputs for this uploaded research batch; they are not clinical prevalence estimates.")
+    metric_strip([
+        ("Total rows", f"{summary['total_rows']:,}", "Uploaded records"),
+        ("Valid rows", f"{summary['valid_rows']:,}", "Eligible for frozen inference"),
+        ("Invalid rows", f"{summary['invalid_rows']:,}", "Preserved without prediction"),
+        ("3 / 3 agreement", f"{summary['three_of_three']:,}", "Valid rows"),
+        ("2 / 3 agreement", f"{summary['two_of_three']:,}", "Valid rows"),
+        ("Disagreement", f"{summary['disagreement']:,}", "Valid rows"),
+    ])
+
+    valid = results[results.validation_status == "VALID"]
+    model_rows = []
+    for model, label in (("rbf_svm", "RBF-SVM"), ("qsvc", "QSVC"), ("vqc", "VQC")):
+        counts = valid[f"{model}_prediction"].value_counts()
+        model_rows.extend([
+            {"Model": label, "Prediction": "CKD-like", "Count": int(counts.get(1, 0))},
+            {"Model": label, "Prediction": "non-CKD-like", "Count": int(counts.get(0, 0))},
+        ])
+    distribution = pd.DataFrame(model_rows)
+    agreement = pd.DataFrame([
+        {"Agreement": "3 / 3", "Count": summary["three_of_three"]},
+        {"Agreement": "2 / 3", "Count": summary["two_of_three"]},
+        {"Agreement": "Disagreement", "Count": summary["disagreement"]},
+    ])
+    validation = pd.DataFrame([
+        {"Status": "Valid", "Count": summary["valid_rows"]},
+        {"Status": "Invalid", "Count": summary["invalid_rows"]},
+    ])
+    charts = st.columns(3, gap="large")
+    with charts[0]:
+        st.caption("Validation summary")
+        st.bar_chart(validation, x="Status", y="Count", color="#315AD8")
+    with charts[1]:
+        st.caption("Model output comparison")
+        st.bar_chart(distribution, x="Prediction", y="Count", color="Model")
+    with charts[2]:
+        st.caption("Agreement distribution")
+        st.bar_chart(agreement, x="Agreement", y="Count", color="#5C626C")
+
+    section_header("Filter results", "Filtering changes the displayed rows only; it never reruns frozen inference.")
+    filters = st.columns(6, gap="small")
+    with filters[0]:
+        validation_filter = st.selectbox("Validation", ["All", "Valid", "Invalid"], key="batch_filter_validation")
+    with filters[1]:
+        agreement_filter = st.selectbox("Agreement", ["All", "3 OF 3 AGREE", "2 OF 3 AGREE", "DISAGREEMENT"], key="batch_filter_agreement")
+    filter_options = ["All", "CKD-like", "non-CKD-like"]
+    with filters[2]:
+        rbf_filter = st.selectbox("RBF-SVM", filter_options, key="batch_filter_rbf")
+    with filters[3]:
+        qsvc_filter = st.selectbox("QSVC", filter_options, key="batch_filter_qsvc")
+    with filters[4]:
+        vqc_filter = st.selectbox("VQC", filter_options, key="batch_filter_vqc")
+    with filters[5]:
+        st.download_button(
+            "DOWNLOAD BATCH RESULTS CSV",
+            data=export_results(results),
+            file_name=f"qcare_batch_results_{st.session_state.get('batch_source_fingerprint', 'export')[:8]}.csv",
+            mime="text/csv",
+            key="download_batch_results",
+            width="stretch",
+        )
+    filtered = filter_results(results, validation_filter, agreement_filter, rbf_filter, qsvc_filter, vqc_filter)
+    st.caption("Experimental decision scores are model-specific and are not disease probabilities; raw score magnitudes must not be compared across model families.")
+    limitation_callout(
+        "CKD stage scope",
+        "CKD stage is not produced because the frozen Q-CARE models were not trained or validated for Stage 1–5 classification.",
+    )
+    st.dataframe(filtered[result_columns()], hide_index=True, width="stretch")
+
+
+def _research_pdf_control(root: Path, repo: ResultsRepository, service: LiveVQCService, entry: str) -> None:
+    """Offer report generation only after the relevant frozen experiment exists."""
+
+    analysis = st.session_state.get("workstation_analysis")
+    batch_results = st.session_state.get("batch_results")
+    if entry == "CSV Batch":
+        ready = isinstance(batch_results, pd.DataFrame) and not batch_results.empty
+        context = f"CSV Batch:{st.session_state.get('batch_source_fingerprint', '')}:{id(batch_results)}"
+    elif entry == "Scan Report":
+        ready = analysis is not None and st.session_state.get("ocr_confirmed_profile") is not None
+        context = f"Scan Report:{id(analysis)}:{st.session_state.get('ocr_source_fingerprint', '')}"
+    else:
+        ready = analysis is not None
+        context = f"Single Patient:{id(analysis)}"
+
+    if st.session_state.get("research_pdf_context") != context:
+        st.session_state.pop("research_pdf_bytes", None)
+        st.session_state.pop("research_pdf_id", None)
+        st.session_state["research_pdf_context"] = context
+
+    section_header("Research evidence report", "A downloadable evidence summary for the completed experiment; this is not a medical report.")
+    if not ready:
+        st.button("GENERATE RESEARCH PDF", disabled=True, key="generate_research_pdf", width="stretch")
+        st.caption("Complete the frozen model experiment before generating a research report.")
+        return
+
+    if st.button("GENERATE RESEARCH PDF", type="primary", key="generate_research_pdf", width="stretch"):
         try:
-            st.session_state["workstation_data_health"] = analyse_data_health(frame, str(target), service.observed_ranges)
-        except ValueError as error:
+            with st.spinner("Assembling frozen evidence into a research PDF…"):
+                if entry == "CSV Batch":
+                    mapping = {
+                        feature: st.session_state.get(f"batch_mapping_{feature}")
+                        for feature in BATCH_FEATURE_ORDER
+                    }
+                    pdf = create_batch_report(
+                        repo,
+                        service,
+                        batch_results,
+                        source_name=st.session_state.get("batch_source_name"),
+                        mapping=mapping,
+                    )
+                else:
+                    pdf = create_single_patient_report(
+                        repo,
+                        service,
+                        analysis,
+                        mode="Report Scan" if entry == "Scan Report" else "Manual",
+                        source_name=st.session_state.get("ocr_source_name"),
+                        researcher_confirmed=entry == "Scan Report",
+                        corrected_values=bool(st.session_state.get("ocr_profile_modified", False)),
+                    )
+            st.session_state["research_pdf_bytes"] = pdf
+            st.session_state["research_pdf_id"] = pdf[:24].hex()[-8:].upper()
+        except ReportStateError as error:  # pragma: no cover - guarded UI state
             st.error(str(error))
+
+    pdf = st.session_state.get("research_pdf_bytes")
+    if isinstance(pdf, bytes):
+        report_id = st.session_state.get("research_pdf_id", "REPORT")
+        st.download_button(
+            "DOWNLOAD RESEARCH PDF",
+            data=pdf,
+            file_name=f"qcare_research_{report_id}.pdf",
+            mime="application/pdf",
+            key="download_research_pdf",
+            width="stretch",
+        )
 
 
 def _model_table(result: dict[str, Any], model_mode: str, selected_model: str) -> tuple[pd.DataFrame, str]:
@@ -373,6 +623,64 @@ def _model_table(result: dict[str, Any], model_mode: str, selected_model: str) -
     ])
     agreement = "3 OF 3 AGREE" if result["comparison"]["agreement"] == "ALL AGREE" else "2 OF 3 AGREE"
     return table, agreement
+
+
+def _stage_scope_note() -> None:
+    limitation_callout("Stage scope", "Stage cannot be inferred from this binary Q-CARE classification.")
+
+
+def _stage_research_view() -> None:
+    section_header(
+        "CKD STAGE RESEARCH VIEW",
+        "Responsible AI / model scope control for the current Q-CARE evidence boundary.",
+    )
+    st.markdown(
+        '<div class="final-status"><span>Primary status</span><strong>NOT VALIDATED IN CURRENT Q-CARE MODEL</strong>'
+        '<b>Q-CARE currently evaluates an experimental CKD-like versus non-CKD-like pattern. '
+        'The frozen models do not predict CKD Stage 1–5.</b></div>',
+        unsafe_allow_html=True,
+    )
+    matrix = [
+        ("Binary CKD-like classification", "AVAILABLE — RESEARCH ONLY"),
+        ("Stage 1–5 prediction", "NOT AVAILABLE"),
+        ("Stage-labelled training target", "NOT PRESENT IN CURRENT MODEL"),
+        ("Stage-specific model validation", "NOT ESTABLISHED"),
+        ("Clinical staging", "NOT ESTABLISHED"),
+    ]
+    rows = "".join(
+        f'<div class="final-evidence-row"><span>{html.escape(label)}</span><strong>{html.escape(status)}</strong></div>'
+        for label, status in matrix
+    )
+    st.markdown(f'<div class="final-evidence-list">{rows}</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="research-note"><b>Binary classification is not staging</b>'
+        '<span><strong>Binary classification asks:</strong> “Does this feature pattern resemble the CKD class or non-CKD class learned from this dataset?”<br><br>'
+        '<strong>Staging asks a different question:</strong> “What clinically defined stage of chronic kidney disease applies?”<br><br>'
+        'These are not interchangeable tasks. The current model target cannot safely answer the second question.</span></div>',
+        unsafe_allow_html=True,
+    )
+    section_header("Future research architecture", "A separate staging program would require its own cohort, target, model, validation, and governance.")
+    roadmap = [
+        "Stage-labelled / clinically harmonized cohort",
+        "Staging measurements + metadata",
+        "Stage-specific target definition",
+        "Training-only preprocessing",
+        "Separate staging model",
+        "Internal validation",
+        "Calibration where appropriate",
+        "External validation",
+        "Clinical governance",
+    ]
+    st.markdown(
+        '<div class="process-flow">'
+        + "".join(f'<div class="process-step"><strong>{html.escape(item)}</strong><span>Future research only</span></div>' for item in roadmap)
+        + "</div>",
+        unsafe_allow_html=True,
+    )
+    limitation_callout(
+        "WHY Q-CARE DOES NOT GUESS THE STAGE",
+        "Using a binary classifier, raw model score, or isolated laboratory value to manufacture Stage 1–5 would create an unsupported clinical claim. Q-CARE separates what the current evidence supports from what requires a different dataset and validation protocol.",
+    )
 
 
 def _factor_panel(factors: pd.DataFrame) -> None:
@@ -499,6 +807,7 @@ def _live_assessment(
             limitation_callout("Model disagreement", "Models do not completely agree. Review model-specific evidence and input quality before interpreting this research output. It must not be interpreted as diagnosis.")
         else:
             st.caption("Agreement among research models does not establish diagnosis or clinical validity.")
+        _stage_scope_note()
 
     _performance_visual(repo, service)
     _runtime_visual(repo, service)
@@ -623,7 +932,7 @@ def _model_explainers() -> None:
     ]
     body = "".join(
         f'<details class="model-explainer"><summary><b>{html.escape(name)}</b><span>{html.escape(what)}</span></summary>'
-        f'<div><strong>How?</strong><p>{html.escape(how)}</p><strong>Why included?</strong><p>{html.escape(why)}</p><strong>Our result</strong><p>{html.escape(result)}</p></div></details>'
+        f'<div><strong>How?</strong><p>{html.escape(how)}</p><strong>Why included?</strong><p>{html.escape(why)}</p><strong>Our result</strong><p>{html.escape(result)}</p><strong>Output scope</strong><p>Binary experimental classification</p><strong>Stage capability</strong><p>Not validated</p></div></details>'
         for name, what, how, why, result in cards
     )
     st.markdown(f'<div class="model-explainer-grid">{body}</div>', unsafe_allow_html=True)
@@ -774,6 +1083,9 @@ def _final_evidence_report(repo: ResultsRepository) -> None:
     with st.expander("Q-CARE model evidence report", expanded=True):
         section_header("Q-CARE model evidence report", "A concise end-state assembled from the frozen claim registry and experiment artifacts.")
         statuses = [
+            ("CKD-like binary classification", "SUPPORTED INTERNALLY / RESEARCH ONLY"),
+            ("CKD Stage 1–5 prediction", "NOT VALIDATED"),
+            ("Clinical staging", "NOT ESTABLISHED"),
             ("Internal SVM performance", "STRONG"),
             ("QSVC internal competitiveness", "SUPPORTED"),
             ("VQC performance", "WEAK / EXPERIMENTAL"),
@@ -811,8 +1123,8 @@ def workstation_page(root: Path, repo: ResultsRepository) -> None:
     with entry_column:
         entry = st.segmented_control(
             "Entry path",
-            ["Enter manually", "Scan report", "Upload biomedical dataset"],
-            default="Enter manually",
+            ["Single Patient", "CSV Batch", "Scan Report"],
+            default="Single Patient",
             key="workstation_entry_path",
             width="stretch",
         )
@@ -821,9 +1133,9 @@ def workstation_page(root: Path, repo: ResultsRepository) -> None:
         selected_model = "VQC"
         if model_mode == "Single Model":
             selected_model = st.selectbox("Frozen model", list(MODEL_LABELS), key="workstation_selected_model")
-    if entry == "Upload biomedical dataset":
-        _dataset_entry(service)
-    elif entry == "Scan report":
+    if entry == "CSV Batch":
+        _batch_entry(root, service)
+    elif entry == "Scan Report":
         if "ocr_confirmed_profile" not in st.session_state:
             st.session_state.pop("workstation_analysis", None)
         _report_scanner_entry(root, service)
@@ -832,10 +1144,12 @@ def workstation_page(root: Path, repo: ResultsRepository) -> None:
 
     awaiting = (
         "Extract, review, and confirm all eight report-derived values, then select RUN EXPERIMENT. OCR never runs a model automatically."
-        if entry == "Scan report" else
+        if entry == "Scan Report" else
         "Enter a profile above and select ANALYSE PROFILE. No training occurs during this interaction."
     )
     _live_assessment(service, repo, model_mode, selected_model, awaiting)
+    _stage_research_view()
+    _research_pdf_control(root, repo, service, entry)
     _feature_efficiency(repo)
     _model_explainers()
     _data_health_disclosure(st.session_state.get("workstation_data_health"))
