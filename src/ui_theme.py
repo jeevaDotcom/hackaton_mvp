@@ -377,6 +377,59 @@ h3 { font-size: 24px !important; line-height: 1.2 !important; font-weight: 650 !
 [data-testid="stExpander"] { margin-top: var(--space-2); border: 0; border-bottom: 1px solid var(--border); border-radius: 0; background: transparent; }
 [data-testid="stExpander"] summary { min-height: 56px; font-weight: 650; }
 [data-testid="stFileUploader"] { padding: var(--space-3) 0; }
+
+/* Keep profile-entry controls light without changing evidence tables. */
+[data-testid="stNumberInputContainer"] {
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised) !important;
+}
+[data-testid="stNumberInputField"] {
+  color: var(--text-primary) !important;
+  caret-color: var(--accent);
+  background: transparent !important;
+}
+[data-testid="stNumberInputContainer"]:focus-within {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 1px var(--accent) !important;
+}
+[data-testid="stNumberInputContainer"] [data-testid^="stNumberInputStep"] {
+  color: var(--text-primary) !important;
+  background: var(--surface) !important;
+}
+[data-testid="stNumberInputContainer"] [data-testid^="stNumberInputStep"]:hover {
+  background: #E6E9F2 !important;
+}
+[data-testid="stSelectbox"] [role="group"] {
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised) !important;
+}
+[data-testid="stSelectbox"] [role="combobox"] {
+  color: var(--text-primary) !important;
+  background: transparent !important;
+}
+[data-testid="stSelectbox"] [role="group"]:focus-within {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 1px var(--accent) !important;
+}
+[data-testid="stSelectbox"] [role="group"] button[aria-label="Open"] {
+  color: var(--text-primary) !important;
+  background: transparent !important;
+}
+[role="listbox"] {
+  border: 1px solid var(--border) !important;
+  background: var(--surface-raised) !important;
+}
+[role="listbox"] [role="option"] {
+  color: var(--text-primary) !important;
+  background: var(--surface-raised) !important;
+}
+[role="listbox"] [role="option"]:hover,
+[role="listbox"] [role="option"][aria-selected="true"] {
+  background: #EDF1FC !important;
+  color: var(--text-primary) !important;
+}
 div[data-testid="stDownloadButton"] button,
 div[data-testid="stButton"] button[kind="primary"],
 div.stButton > button[kind="primary"],
